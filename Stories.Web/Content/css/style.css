@@ -1,0 +1,44 @@
+﻿.border-color-d {
+    border-color: #dddddd;
+}
+
+
+.select2 {
+    width: 100% !important;
+}
+
+
+
+.post-title {
+    height: 3em;
+}
+
+.dropdown-toggle:after {
+    content: none
+}
+
+.article-content {
+    line-height: 2em;
+}
+
+.validation-alert {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-family: Vazir-Light;
+    color: #dc3545;
+}
+
+.section-header {
+    font-family: Vazir-Medium;
+    font-size: 1.25rem;
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+.page-header {
+    font-family: Vazir-Bold;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #dee2e6 !important;
+    margin-bottom: 3rem !important;
+}

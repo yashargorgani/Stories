@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "صفحه نخست";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+{
+    <script>
+        $('#home-story-div').load('@Url.Action("LoadStory")');
+    </script>
+
+    <script>
+        $('#load-more-btn').click(function () {
+            var p = parseInt($(this).val());
+
+            $.ajax({
+                url: '@Url.Action("LoadStory")',
+                data: { page: p+1 },
+                type: 'GET',
+                dataType: 'html'
+            }).done(function(result) {
+                $('#home-story-div').append(result);
+                $('#load-more-btn').val(++p);
+                });
+        })
+    </script>
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div id="home-story-div">
+
+                <div class="text-center">
+                    <img src="~/Content/img/header-loading.gif" />
+                </div>
+
+
+            </div>
+
+            <button id="load-more-btn" class="btn btn-outline-secondary btn-block" value="1">بیشتر</button>
+        </div>
+    </div>
+</div>

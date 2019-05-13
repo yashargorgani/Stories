@@ -1,0 +1,64 @@
+﻿@model Tuple<List<Stories.Models.Topic>, Stories.Models.UserProfile>
+
+<header>
+    <div class="container">
+        <nav class="navbar navbar-light justify-content-between">
+            <a href="@Url.Action("Index", "Home")" class="navbar-brand" style="font-family: Vazir-Black; font-size: 1.75rem">کافه نگارش</a>
+
+            <div class="row">
+                <form class="form-inline">
+                    <input type="text" class="form-control" placeholder="جستجو" aria-label="جستجو">
+                </form>
+
+                <div class="nav-item dropdown">
+
+                    @if (Model.Item2 != null)
+                    {
+                        string b64 = Convert.ToBase64String(Model.Item2.ProfileImage == null ? new byte[0] : Model.Item2.ProfileImage);
+
+                        <a class="nav-link dropdown-toggle" href="#" id="topNavbar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="@string.Format("data:image/jpg;base64,{0}", b64)" class="rounded-circle" width="40" height="40" />
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="topNavbar">
+                            <a class="dropdown-item" href="@Url.Action("Display", "UserProfile", new { id = Model.Item2.Id })">پروفایل</a>
+                            <a class="dropdown-item" href="@Url.Action("Create", "UserProfile")">ویرایش پروفایل</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="@Url.Action("Compose", "Story")">نگارش‌ جدید</a>
+                            <a class="dropdown-item" href="@Url.Action("Index", "Story")">نگارش‌های من</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">خروج</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login", "Account")" class="btn btn-outline-danger mr-1" title="ورود با جیمیل">
+                            ورود/ثبت نام
+                            <i class="fab fa-google"></i>
+                        </a>
+                    }
+
+                </div>
+
+
+            </div>
+        </nav>
+
+    </div>
+
+
+    <div id="topicCourser" class="container" dir="rtl">
+        @foreach (var item in Model.Item1)
+        {
+            <a href="#" class="btn btn-light">@item.Caption</a>
+        }
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a href="@Url.Action("Select", "Topic")" class="btn btn-light" data-toggle="tooltip" title="انتخاب تاپیک">
+                <i class="fas fa-ellipsis-h"></i>
+            </a>
+        }
+
+    </div>
+
+</header>

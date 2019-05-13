@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="df99c67af78f47a39b04270745b49247" Name="Diagram1">
+        <EntityTypeShape EntityType="StoriesModel.PRF_EducationField" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.PRF_EducationLevel" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.PRF_Follow" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.PRF_Interest" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.PRF_UserInterest" Width="1.5" PointX="8.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.PRF_WorkField" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.STR_CommentOfStory" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.STR_RateOfStory" Width="1.5" PointX="8.25" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.STR_RateSubject" Width="1.5" PointX="6" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.STR_ReportOfComment" Width="1.5" PointX="10.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.STR_ReportOfStory" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.STR_ReportSubject" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.STR_Tag" Width="1.5" PointX="5.25" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.STR_TagOfStory" Width="1.5" PointX="7.5" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.STR_Topic" Width="1.5" PointX="3" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoriesModel.STR_UserTopic" Width="1.5" PointX="5.25" PointY="29.5" IsExpanded="true" />
+        <AssociationConnector Association="StoriesModel.FK_UserInterest_Interest" ManuallyRouted="false" />
+        <AssociationConnector Association="StoriesModel.FK_CommentOfStory_CommentOfStory1" ManuallyRouted="false" />
+        <AssociationConnector Association="StoriesModel.FK_ReportOfComment_CommentOfStory" ManuallyRouted="false" />
+        <AssociationConnector Association="StoriesModel.FK_RateOfStory_RateSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="StoriesModel.FK_ReportOfComment_ReportSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="StoriesModel.FK_ReportOfStory_ReportSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="StoriesModel.FK_TagOfStory_Tag" ManuallyRouted="false" />
+        <AssociationConnector Association="StoriesModel.FK_STR_UserTopic_STR_Topic" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="StoriesModel.PRF_UserProfile" Width="1.5" PointX="3" PointY="10.875" />
+        <AssociationConnector Association="StoriesModel.FK_UserProfile_EducationField" />
+        <AssociationConnector Association="StoriesModel.FK_UserProfile_EducationLevel" />
+        <AssociationConnector Association="StoriesModel.FK_PRF_Follow_PRF_UserProfile" />
+        <AssociationConnector Association="StoriesModel.FK_PRF_Follow_PRF_UserProfile1" />
+        <AssociationConnector Association="StoriesModel.FK_UserInterest_UserProfile" />
+        <AssociationConnector Association="StoriesModel.FK_CommentOfStory_UserProfile" />
+        <AssociationConnector Association="StoriesModel.FK_RateOfStory_UserProfile" />
+        <AssociationConnector Association="StoriesModel.FK_ReportOfComment_UserProfile" />
+        <AssociationConnector Association="StoriesModel.FK_ReportOfStory_UserProfile" />
+        <AssociationConnector Association="StoriesModel.FK_UserProfile_WorkField" />
+        <EntityTypeShape EntityType="StoriesModel.STR_StoryStatus" Width="1.5" PointX="3" PointY="20.25" />
+        <EntityTypeShape EntityType="StoriesModel.STR_LikeOfStory" Width="1.5" PointX="10.5" PointY="14.875" />
+        <AssociationConnector Association="StoriesModel.FK_STR_LikeOfStory_PRF_UserProfile" />
+        <EntityTypeShape EntityType="StoriesModel.STR_Story" Width="1.5" PointX="5.25" PointY="17.375" />
+        <AssociationConnector Association="StoriesModel.FK_Story_UserProfile" />
+        <AssociationConnector Association="StoriesModel.FK_CommentOfStory_Story" />
+        <AssociationConnector Association="StoriesModel.FK_STR_LikeOfStory_STR_Story" />
+        <AssociationConnector Association="StoriesModel.FK_RateOfStory_Story" />
+        <AssociationConnector Association="StoriesModel.FK_ReportOfStory_Story" />
+        <AssociationConnector Association="StoriesModel.FK_Story_Topic" />
+        <AssociationConnector Association="StoriesModel.FK_STR_Story_STR_StoryStatus" />
+        <AssociationConnector Association="StoriesModel.FK_TagOfStory_Story" />
+        <EntityTypeShape EntityType="StoriesModel.PRF_UserAccount" Width="1.5" PointX="5.25" PointY="14.5" />
+        <AssociationConnector Association="StoriesModel.FK_UserAccount_UserProfile" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,1621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StoriesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PRF_EducationField">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRF_EducationLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRF_Follow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FollowingUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FollowedUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ActionDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRF_Interest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRF_UserAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserProfileId" Type="uniqueidentifier" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="PRF_UserInterest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="InterestId" Type="int" Nullable="false" />
+          <Property Name="UserProfileId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRF_UserProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="12" />
+          <Property Name="EducationLevelId" Type="int" />
+          <Property Name="EducationFieldId" Type="int" />
+          <Property Name="WorkFieldId" Type="int" />
+          <Property Name="Bio" Type="nvarchar(max)" />
+          <Property Name="ProfileImage" Type="varbinary(max)" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRF_WorkField">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_CommentOfStory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserProfileId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsReply" Type="bit" Nullable="false" />
+          <Property Name="ReplyToId" Type="uniqueidentifier" />
+          <Property Name="ActionDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_LikeOfStory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserProfileId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Value" Type="bit" Nullable="false" />
+          <Property Name="ActionDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_RateOfStory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserProfileId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RateSubjectId" Type="int" Nullable="false" />
+          <Property Name="Rate" Type="smallint" Nullable="false" />
+          <Property Name="ActionDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_RateSubject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_ReportOfComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserProfileId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CommentId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReportSubjectId" Type="int" Nullable="false" />
+          <Property Name="ActionDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_ReportOfStory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserProfileId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReportSubjectId" Type="int" Nullable="false" />
+          <Property Name="ActionDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_ReportSubject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_Story">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserProfileId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TopicId" Type="int" Nullable="false" />
+          <Property Name="StoryImage" Type="varbinary(max)" />
+          <Property Name="StoryStatusId" Type="int" Nullable="false" />
+          <Property Name="ActionDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_StoryStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_TagOfStory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TagId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STR_UserTopic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserProfileId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TopicId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CommentOfStory_CommentOfStory1">
+          <End Role="STR_CommentOfStory" Type="Self.STR_CommentOfStory" Multiplicity="0..1" />
+          <End Role="STR_CommentOfStory1" Type="Self.STR_CommentOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_CommentOfStory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_CommentOfStory1">
+              <PropertyRef Name="ReplyToId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommentOfStory_Story">
+          <End Role="STR_Story" Type="Self.STR_Story" Multiplicity="1" />
+          <End Role="STR_CommentOfStory" Type="Self.STR_CommentOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Story">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_CommentOfStory">
+              <PropertyRef Name="StoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommentOfStory_UserProfile">
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="1" />
+          <End Role="STR_CommentOfStory" Type="Self.STR_CommentOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_CommentOfStory">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRF_Follow_PRF_UserProfile">
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="1" />
+          <End Role="PRF_Follow" Type="Self.PRF_Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_Follow">
+              <PropertyRef Name="FollowingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRF_Follow_PRF_UserProfile1">
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="1" />
+          <End Role="PRF_Follow" Type="Self.PRF_Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_Follow">
+              <PropertyRef Name="FollowedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RateOfStory_RateSubject">
+          <End Role="STR_RateSubject" Type="Self.STR_RateSubject" Multiplicity="1" />
+          <End Role="STR_RateOfStory" Type="Self.STR_RateOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_RateSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_RateOfStory">
+              <PropertyRef Name="RateSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RateOfStory_Story">
+          <End Role="STR_Story" Type="Self.STR_Story" Multiplicity="1" />
+          <End Role="STR_RateOfStory" Type="Self.STR_RateOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Story">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_RateOfStory">
+              <PropertyRef Name="StoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RateOfStory_UserProfile">
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="1" />
+          <End Role="STR_RateOfStory" Type="Self.STR_RateOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_RateOfStory">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfComment_CommentOfStory">
+          <End Role="STR_CommentOfStory" Type="Self.STR_CommentOfStory" Multiplicity="1" />
+          <End Role="STR_ReportOfComment" Type="Self.STR_ReportOfComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_CommentOfStory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfComment">
+              <PropertyRef Name="CommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfComment_ReportSubject">
+          <End Role="STR_ReportSubject" Type="Self.STR_ReportSubject" Multiplicity="1" />
+          <End Role="STR_ReportOfComment" Type="Self.STR_ReportOfComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_ReportSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfComment">
+              <PropertyRef Name="ReportSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfComment_UserProfile">
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="1" />
+          <End Role="STR_ReportOfComment" Type="Self.STR_ReportOfComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfComment">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfStory_ReportSubject">
+          <End Role="STR_ReportSubject" Type="Self.STR_ReportSubject" Multiplicity="1" />
+          <End Role="STR_ReportOfStory" Type="Self.STR_ReportOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_ReportSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfStory">
+              <PropertyRef Name="ReportSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfStory_Story">
+          <End Role="STR_Story" Type="Self.STR_Story" Multiplicity="1" />
+          <End Role="STR_ReportOfStory" Type="Self.STR_ReportOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Story">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfStory">
+              <PropertyRef Name="StoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfStory_UserProfile">
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="1" />
+          <End Role="STR_ReportOfStory" Type="Self.STR_ReportOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfStory">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Story_Topic">
+          <End Role="STR_Topic" Type="Self.STR_Topic" Multiplicity="1" />
+          <End Role="STR_Story" Type="Self.STR_Story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_Story">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Story_UserProfile">
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="1" />
+          <End Role="STR_Story" Type="Self.STR_Story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_Story">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STR_LikeOfStory_PRF_UserProfile">
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="1" />
+          <End Role="STR_LikeOfStory" Type="Self.STR_LikeOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_LikeOfStory">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STR_LikeOfStory_STR_Story">
+          <End Role="STR_Story" Type="Self.STR_Story" Multiplicity="1" />
+          <End Role="STR_LikeOfStory" Type="Self.STR_LikeOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Story">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_LikeOfStory">
+              <PropertyRef Name="StoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STR_Story_STR_StoryStatus">
+          <End Role="STR_StoryStatus" Type="Self.STR_StoryStatus" Multiplicity="1" />
+          <End Role="STR_Story" Type="Self.STR_Story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_StoryStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_Story">
+              <PropertyRef Name="StoryStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STR_UserTopic_STR_Topic">
+          <End Role="STR_Topic" Type="Self.STR_Topic" Multiplicity="1" />
+          <End Role="STR_UserTopic" Type="Self.STR_UserTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_UserTopic">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagOfStory_Story">
+          <End Role="STR_Story" Type="Self.STR_Story" Multiplicity="1" />
+          <End Role="STR_TagOfStory" Type="Self.STR_TagOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Story">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_TagOfStory">
+              <PropertyRef Name="StoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagOfStory_Tag">
+          <End Role="STR_Tag" Type="Self.STR_Tag" Multiplicity="1" />
+          <End Role="STR_TagOfStory" Type="Self.STR_TagOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_TagOfStory">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_UserProfile">
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="0..1" />
+          <End Role="PRF_UserAccount" Type="Self.PRF_UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserAccount">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInterest_Interest">
+          <End Role="PRF_Interest" Type="Self.PRF_Interest" Multiplicity="1" />
+          <End Role="PRF_UserInterest" Type="Self.PRF_UserInterest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_Interest">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserInterest">
+              <PropertyRef Name="InterestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInterest_UserProfile">
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="1" />
+          <End Role="PRF_UserInterest" Type="Self.PRF_UserInterest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserInterest">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfile_EducationField">
+          <End Role="PRF_EducationField" Type="Self.PRF_EducationField" Multiplicity="0..1" />
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_EducationField">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserProfile">
+              <PropertyRef Name="EducationFieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfile_EducationLevel">
+          <End Role="PRF_EducationLevel" Type="Self.PRF_EducationLevel" Multiplicity="0..1" />
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_EducationLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserProfile">
+              <PropertyRef Name="EducationLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfile_WorkField">
+          <End Role="PRF_WorkField" Type="Self.PRF_WorkField" Multiplicity="0..1" />
+          <End Role="PRF_UserProfile" Type="Self.PRF_UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_WorkField">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserProfile">
+              <PropertyRef Name="WorkFieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoriesModelStoreContainer">
+          <EntitySet Name="PRF_EducationField" EntityType="Self.PRF_EducationField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRF_EducationLevel" EntityType="Self.PRF_EducationLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRF_Follow" EntityType="Self.PRF_Follow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRF_Interest" EntityType="Self.PRF_Interest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRF_UserAccount" EntityType="Self.PRF_UserAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRF_UserInterest" EntityType="Self.PRF_UserInterest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRF_UserProfile" EntityType="Self.PRF_UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRF_WorkField" EntityType="Self.PRF_WorkField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_CommentOfStory" EntityType="Self.STR_CommentOfStory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_LikeOfStory" EntityType="Self.STR_LikeOfStory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_RateOfStory" EntityType="Self.STR_RateOfStory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_RateSubject" EntityType="Self.STR_RateSubject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_ReportOfComment" EntityType="Self.STR_ReportOfComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_ReportOfStory" EntityType="Self.STR_ReportOfStory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_ReportSubject" EntityType="Self.STR_ReportSubject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_Story" EntityType="Self.STR_Story" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_StoryStatus" EntityType="Self.STR_StoryStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_Tag" EntityType="Self.STR_Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_TagOfStory" EntityType="Self.STR_TagOfStory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_Topic" EntityType="Self.STR_Topic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STR_UserTopic" EntityType="Self.STR_UserTopic" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CommentOfStory_CommentOfStory1" Association="Self.FK_CommentOfStory_CommentOfStory1">
+            <End Role="STR_CommentOfStory" EntitySet="STR_CommentOfStory" />
+            <End Role="STR_CommentOfStory1" EntitySet="STR_CommentOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommentOfStory_Story" Association="Self.FK_CommentOfStory_Story">
+            <End Role="STR_Story" EntitySet="STR_Story" />
+            <End Role="STR_CommentOfStory" EntitySet="STR_CommentOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommentOfStory_UserProfile" Association="Self.FK_CommentOfStory_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_CommentOfStory" EntitySet="STR_CommentOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRF_Follow_PRF_UserProfile" Association="Self.FK_PRF_Follow_PRF_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="PRF_Follow" EntitySet="PRF_Follow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRF_Follow_PRF_UserProfile1" Association="Self.FK_PRF_Follow_PRF_UserProfile1">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="PRF_Follow" EntitySet="PRF_Follow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RateOfStory_RateSubject" Association="Self.FK_RateOfStory_RateSubject">
+            <End Role="STR_RateSubject" EntitySet="STR_RateSubject" />
+            <End Role="STR_RateOfStory" EntitySet="STR_RateOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RateOfStory_Story" Association="Self.FK_RateOfStory_Story">
+            <End Role="STR_Story" EntitySet="STR_Story" />
+            <End Role="STR_RateOfStory" EntitySet="STR_RateOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RateOfStory_UserProfile" Association="Self.FK_RateOfStory_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_RateOfStory" EntitySet="STR_RateOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfComment_CommentOfStory" Association="Self.FK_ReportOfComment_CommentOfStory">
+            <End Role="STR_CommentOfStory" EntitySet="STR_CommentOfStory" />
+            <End Role="STR_ReportOfComment" EntitySet="STR_ReportOfComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfComment_ReportSubject" Association="Self.FK_ReportOfComment_ReportSubject">
+            <End Role="STR_ReportSubject" EntitySet="STR_ReportSubject" />
+            <End Role="STR_ReportOfComment" EntitySet="STR_ReportOfComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfComment_UserProfile" Association="Self.FK_ReportOfComment_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_ReportOfComment" EntitySet="STR_ReportOfComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfStory_ReportSubject" Association="Self.FK_ReportOfStory_ReportSubject">
+            <End Role="STR_ReportSubject" EntitySet="STR_ReportSubject" />
+            <End Role="STR_ReportOfStory" EntitySet="STR_ReportOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfStory_Story" Association="Self.FK_ReportOfStory_Story">
+            <End Role="STR_Story" EntitySet="STR_Story" />
+            <End Role="STR_ReportOfStory" EntitySet="STR_ReportOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfStory_UserProfile" Association="Self.FK_ReportOfStory_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_ReportOfStory" EntitySet="STR_ReportOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Story_Topic" Association="Self.FK_Story_Topic">
+            <End Role="STR_Topic" EntitySet="STR_Topic" />
+            <End Role="STR_Story" EntitySet="STR_Story" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Story_UserProfile" Association="Self.FK_Story_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_Story" EntitySet="STR_Story" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STR_LikeOfStory_PRF_UserProfile" Association="Self.FK_STR_LikeOfStory_PRF_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_LikeOfStory" EntitySet="STR_LikeOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STR_LikeOfStory_STR_Story" Association="Self.FK_STR_LikeOfStory_STR_Story">
+            <End Role="STR_Story" EntitySet="STR_Story" />
+            <End Role="STR_LikeOfStory" EntitySet="STR_LikeOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STR_Story_STR_StoryStatus" Association="Self.FK_STR_Story_STR_StoryStatus">
+            <End Role="STR_StoryStatus" EntitySet="STR_StoryStatus" />
+            <End Role="STR_Story" EntitySet="STR_Story" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STR_UserTopic_STR_Topic" Association="Self.FK_STR_UserTopic_STR_Topic">
+            <End Role="STR_Topic" EntitySet="STR_Topic" />
+            <End Role="STR_UserTopic" EntitySet="STR_UserTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagOfStory_Story" Association="Self.FK_TagOfStory_Story">
+            <End Role="STR_Story" EntitySet="STR_Story" />
+            <End Role="STR_TagOfStory" EntitySet="STR_TagOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagOfStory_Tag" Association="Self.FK_TagOfStory_Tag">
+            <End Role="STR_Tag" EntitySet="STR_Tag" />
+            <End Role="STR_TagOfStory" EntitySet="STR_TagOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_UserProfile" Association="Self.FK_UserAccount_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="PRF_UserAccount" EntitySet="PRF_UserAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInterest_Interest" Association="Self.FK_UserInterest_Interest">
+            <End Role="PRF_Interest" EntitySet="PRF_Interest" />
+            <End Role="PRF_UserInterest" EntitySet="PRF_UserInterest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInterest_UserProfile" Association="Self.FK_UserInterest_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="PRF_UserInterest" EntitySet="PRF_UserInterest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_EducationField" Association="Self.FK_UserProfile_EducationField">
+            <End Role="PRF_EducationField" EntitySet="PRF_EducationField" />
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_EducationLevel" Association="Self.FK_UserProfile_EducationLevel">
+            <End Role="PRF_EducationLevel" EntitySet="PRF_EducationLevel" />
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_WorkField" Association="Self.FK_UserProfile_WorkField">
+            <End Role="PRF_WorkField" EntitySet="PRF_WorkField" />
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StoriesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PRF_EducationField">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Caption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_UserProfile_EducationField" FromRole="PRF_EducationField" ToRole="PRF_UserProfile" />
+        </EntityType>
+        <EntityType Name="PRF_EducationLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Caption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_UserProfile_EducationLevel" FromRole="PRF_EducationLevel" ToRole="PRF_UserProfile" />
+        </EntityType>
+        <EntityType Name="PRF_Follow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="FollowingUserId" Type="Guid" Nullable="false" />
+          <Property Name="FollowedUserId" Type="Guid" Nullable="false" />
+          <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_PRF_Follow_PRF_UserProfile" FromRole="PRF_Follow" ToRole="PRF_UserProfile" />
+          <NavigationProperty Name="PRF_UserProfile1" Relationship="StoriesModel.FK_PRF_Follow_PRF_UserProfile1" FromRole="PRF_Follow" ToRole="PRF_UserProfile" />
+          </EntityType>
+        <EntityType Name="PRF_Interest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Caption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PRF_UserInterest" Relationship="Self.FK_UserInterest_Interest" FromRole="PRF_Interest" ToRole="PRF_UserInterest" />
+        </EntityType>
+        <EntityType Name="PRF_UserInterest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="InterestId" Type="Int32" Nullable="false" />
+          <Property Name="UserProfileId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="PRF_Interest" Relationship="Self.FK_UserInterest_Interest" FromRole="PRF_UserInterest" ToRole="PRF_Interest" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_UserInterest_UserProfile" FromRole="PRF_UserInterest" ToRole="PRF_UserProfile" />
+        </EntityType>
+        <EntityType Name="PRF_WorkField">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Caption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_UserProfile_WorkField" FromRole="PRF_WorkField" ToRole="PRF_UserProfile" />
+        </EntityType>
+        <EntityType Name="STR_CommentOfStory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserProfileId" Type="Guid" Nullable="false" />
+          <Property Name="StoryId" Type="Guid" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsReply" Type="Boolean" Nullable="false" />
+          <Property Name="ReplyToId" Type="Guid" />
+          <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="STR_CommentOfStory1" Relationship="Self.FK_CommentOfStory_CommentOfStory1" FromRole="STR_CommentOfStory" ToRole="STR_CommentOfStory1" />
+          <NavigationProperty Name="STR_CommentOfStory2" Relationship="Self.FK_CommentOfStory_CommentOfStory1" FromRole="STR_CommentOfStory1" ToRole="STR_CommentOfStory" />
+          <NavigationProperty Name="STR_ReportOfComment" Relationship="Self.FK_ReportOfComment_CommentOfStory" FromRole="STR_CommentOfStory" ToRole="STR_ReportOfComment" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_CommentOfStory_UserProfile" FromRole="STR_CommentOfStory" ToRole="PRF_UserProfile" />
+          <NavigationProperty Name="STR_Story" Relationship="StoriesModel.FK_CommentOfStory_Story" FromRole="STR_CommentOfStory" ToRole="STR_Story" />
+        </EntityType>
+        <EntityType Name="STR_RateOfStory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="StoryId" Type="Guid" Nullable="false" />
+          <Property Name="UserProfileId" Type="Guid" Nullable="false" />
+          <Property Name="RateSubjectId" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Int16" Nullable="false" />
+          <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="STR_RateSubject" Relationship="Self.FK_RateOfStory_RateSubject" FromRole="STR_RateOfStory" ToRole="STR_RateSubject" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_RateOfStory_UserProfile" FromRole="STR_RateOfStory" ToRole="PRF_UserProfile" />
+          <NavigationProperty Name="STR_Story" Relationship="StoriesModel.FK_RateOfStory_Story" FromRole="STR_RateOfStory" ToRole="STR_Story" />
+        </EntityType>
+        <EntityType Name="STR_RateSubject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Caption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="STR_RateOfStory" Relationship="Self.FK_RateOfStory_RateSubject" FromRole="STR_RateSubject" ToRole="STR_RateOfStory" />
+        </EntityType>
+        <EntityType Name="STR_ReportOfComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserProfileId" Type="Guid" Nullable="false" />
+          <Property Name="CommentId" Type="Guid" Nullable="false" />
+          <Property Name="ReportSubjectId" Type="Int32" Nullable="false" />
+          <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="STR_CommentOfStory" Relationship="Self.FK_ReportOfComment_CommentOfStory" FromRole="STR_ReportOfComment" ToRole="STR_CommentOfStory" />
+          <NavigationProperty Name="STR_ReportSubject" Relationship="Self.FK_ReportOfComment_ReportSubject" FromRole="STR_ReportOfComment" ToRole="STR_ReportSubject" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_ReportOfComment_UserProfile" FromRole="STR_ReportOfComment" ToRole="PRF_UserProfile" />
+        </EntityType>
+        <EntityType Name="STR_ReportOfStory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserProfileId" Type="Guid" Nullable="false" />
+          <Property Name="StoryId" Type="Guid" Nullable="false" />
+          <Property Name="ReportSubjectId" Type="Int32" Nullable="false" />
+          <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="STR_ReportSubject" Relationship="Self.FK_ReportOfStory_ReportSubject" FromRole="STR_ReportOfStory" ToRole="STR_ReportSubject" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_ReportOfStory_UserProfile" FromRole="STR_ReportOfStory" ToRole="PRF_UserProfile" />
+          <NavigationProperty Name="STR_Story" Relationship="StoriesModel.FK_ReportOfStory_Story" FromRole="STR_ReportOfStory" ToRole="STR_Story" />
+        </EntityType>
+        <EntityType Name="STR_ReportSubject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Caption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="STR_ReportOfComment" Relationship="Self.FK_ReportOfComment_ReportSubject" FromRole="STR_ReportSubject" ToRole="STR_ReportOfComment" />
+          <NavigationProperty Name="STR_ReportOfStory" Relationship="Self.FK_ReportOfStory_ReportSubject" FromRole="STR_ReportSubject" ToRole="STR_ReportOfStory" />
+        </EntityType>
+        <EntityType Name="STR_Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Caption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="STR_TagOfStory" Relationship="Self.FK_TagOfStory_Tag" FromRole="STR_Tag" ToRole="STR_TagOfStory" />
+        </EntityType>
+        <EntityType Name="STR_TagOfStory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="StoryId" Type="Guid" Nullable="false" />
+          <Property Name="TagId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="STR_Tag" Relationship="Self.FK_TagOfStory_Tag" FromRole="STR_TagOfStory" ToRole="STR_Tag" />
+          <NavigationProperty Name="STR_Story" Relationship="StoriesModel.FK_TagOfStory_Story" FromRole="STR_TagOfStory" ToRole="STR_Story" />
+        </EntityType>
+        <EntityType Name="STR_Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Caption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="STR_UserTopic" Relationship="Self.FK_STR_UserTopic_STR_Topic" FromRole="STR_Topic" ToRole="STR_UserTopic" />
+          <NavigationProperty Name="STR_Story" Relationship="StoriesModel.FK_Story_Topic" FromRole="STR_Topic" ToRole="STR_Story" />
+        </EntityType>
+        <EntityType Name="STR_UserTopic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserProfileId" Type="Guid" Nullable="false" />
+          <Property Name="TopicId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="STR_Topic" Relationship="Self.FK_STR_UserTopic_STR_Topic" FromRole="STR_UserTopic" ToRole="STR_Topic" />
+        </EntityType>
+        <Association Name="FK_UserInterest_Interest">
+          <End Role="PRF_Interest" Type="Self.PRF_Interest" Multiplicity="1" />
+          <End Role="PRF_UserInterest" Type="Self.PRF_UserInterest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_Interest">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserInterest">
+              <PropertyRef Name="InterestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommentOfStory_CommentOfStory1">
+          <End Role="STR_CommentOfStory" Type="Self.STR_CommentOfStory" Multiplicity="0..1" />
+          <End Role="STR_CommentOfStory1" Type="Self.STR_CommentOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_CommentOfStory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_CommentOfStory1">
+              <PropertyRef Name="ReplyToId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfComment_CommentOfStory">
+          <End Role="STR_CommentOfStory" Type="Self.STR_CommentOfStory" Multiplicity="1" />
+          <End Role="STR_ReportOfComment" Type="Self.STR_ReportOfComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_CommentOfStory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfComment">
+              <PropertyRef Name="CommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RateOfStory_RateSubject">
+          <End Role="STR_RateSubject" Type="Self.STR_RateSubject" Multiplicity="1" />
+          <End Role="STR_RateOfStory" Type="Self.STR_RateOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_RateSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_RateOfStory">
+              <PropertyRef Name="RateSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfComment_ReportSubject">
+          <End Role="STR_ReportSubject" Type="Self.STR_ReportSubject" Multiplicity="1" />
+          <End Role="STR_ReportOfComment" Type="Self.STR_ReportOfComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_ReportSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfComment">
+              <PropertyRef Name="ReportSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfStory_ReportSubject">
+          <End Role="STR_ReportSubject" Type="Self.STR_ReportSubject" Multiplicity="1" />
+          <End Role="STR_ReportOfStory" Type="Self.STR_ReportOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_ReportSubject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfStory">
+              <PropertyRef Name="ReportSubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagOfStory_Tag">
+          <End Role="STR_Tag" Type="Self.STR_Tag" Multiplicity="1" />
+          <End Role="STR_TagOfStory" Type="Self.STR_TagOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_TagOfStory">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STR_UserTopic_STR_Topic">
+          <End Role="STR_Topic" Type="Self.STR_Topic" Multiplicity="1" />
+          <End Role="STR_UserTopic" Type="Self.STR_UserTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_UserTopic">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoriesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PRF_EducationField" EntityType="Self.PRF_EducationField" />
+          <EntitySet Name="PRF_EducationLevel" EntityType="Self.PRF_EducationLevel" />
+          <EntitySet Name="PRF_Follow" EntityType="Self.PRF_Follow" />
+          <EntitySet Name="PRF_Interest" EntityType="Self.PRF_Interest" />
+          <EntitySet Name="PRF_UserInterest" EntityType="Self.PRF_UserInterest" />
+          <EntitySet Name="PRF_WorkField" EntityType="Self.PRF_WorkField" />
+          <EntitySet Name="STR_CommentOfStory" EntityType="Self.STR_CommentOfStory" />
+          <EntitySet Name="STR_RateOfStory" EntityType="Self.STR_RateOfStory" />
+          <EntitySet Name="STR_RateSubject" EntityType="Self.STR_RateSubject" />
+          <EntitySet Name="STR_ReportOfComment" EntityType="Self.STR_ReportOfComment" />
+          <EntitySet Name="STR_ReportOfStory" EntityType="Self.STR_ReportOfStory" />
+          <EntitySet Name="STR_ReportSubject" EntityType="Self.STR_ReportSubject" />
+          <EntitySet Name="STR_Tag" EntityType="Self.STR_Tag" />
+          <EntitySet Name="STR_TagOfStory" EntityType="Self.STR_TagOfStory" />
+          <EntitySet Name="STR_Topic" EntityType="Self.STR_Topic" />
+          <EntitySet Name="STR_UserTopic" EntityType="Self.STR_UserTopic" />
+          <AssociationSet Name="FK_UserInterest_Interest" Association="Self.FK_UserInterest_Interest">
+            <End Role="PRF_Interest" EntitySet="PRF_Interest" />
+            <End Role="PRF_UserInterest" EntitySet="PRF_UserInterest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommentOfStory_CommentOfStory1" Association="Self.FK_CommentOfStory_CommentOfStory1">
+            <End Role="STR_CommentOfStory" EntitySet="STR_CommentOfStory" />
+            <End Role="STR_CommentOfStory1" EntitySet="STR_CommentOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfComment_CommentOfStory" Association="Self.FK_ReportOfComment_CommentOfStory">
+            <End Role="STR_CommentOfStory" EntitySet="STR_CommentOfStory" />
+            <End Role="STR_ReportOfComment" EntitySet="STR_ReportOfComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RateOfStory_RateSubject" Association="Self.FK_RateOfStory_RateSubject">
+            <End Role="STR_RateSubject" EntitySet="STR_RateSubject" />
+            <End Role="STR_RateOfStory" EntitySet="STR_RateOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfComment_ReportSubject" Association="Self.FK_ReportOfComment_ReportSubject">
+            <End Role="STR_ReportSubject" EntitySet="STR_ReportSubject" />
+            <End Role="STR_ReportOfComment" EntitySet="STR_ReportOfComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfStory_ReportSubject" Association="Self.FK_ReportOfStory_ReportSubject">
+            <End Role="STR_ReportSubject" EntitySet="STR_ReportSubject" />
+            <End Role="STR_ReportOfStory" EntitySet="STR_ReportOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagOfStory_Tag" Association="Self.FK_TagOfStory_Tag">
+            <End Role="STR_Tag" EntitySet="STR_Tag" />
+            <End Role="STR_TagOfStory" EntitySet="STR_TagOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STR_UserTopic_STR_Topic" Association="Self.FK_STR_UserTopic_STR_Topic">
+            <End Role="STR_Topic" EntitySet="STR_Topic" />
+            <End Role="STR_UserTopic" EntitySet="STR_UserTopic" />
+          </AssociationSet>
+          <EntitySet Name="PRF_UserProfile" EntityType="StoriesModel.PRF_UserProfile" />
+          <AssociationSet Name="FK_UserProfile_EducationField" Association="StoriesModel.FK_UserProfile_EducationField">
+            <End Role="PRF_EducationField" EntitySet="PRF_EducationField" />
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_EducationLevel" Association="StoriesModel.FK_UserProfile_EducationLevel">
+            <End Role="PRF_EducationLevel" EntitySet="PRF_EducationLevel" />
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRF_Follow_PRF_UserProfile" Association="StoriesModel.FK_PRF_Follow_PRF_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="PRF_Follow" EntitySet="PRF_Follow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRF_Follow_PRF_UserProfile1" Association="StoriesModel.FK_PRF_Follow_PRF_UserProfile1">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="PRF_Follow" EntitySet="PRF_Follow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInterest_UserProfile" Association="StoriesModel.FK_UserInterest_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="PRF_UserInterest" EntitySet="PRF_UserInterest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommentOfStory_UserProfile" Association="StoriesModel.FK_CommentOfStory_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_CommentOfStory" EntitySet="STR_CommentOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RateOfStory_UserProfile" Association="StoriesModel.FK_RateOfStory_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_RateOfStory" EntitySet="STR_RateOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfComment_UserProfile" Association="StoriesModel.FK_ReportOfComment_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_ReportOfComment" EntitySet="STR_ReportOfComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfStory_UserProfile" Association="StoriesModel.FK_ReportOfStory_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_ReportOfStory" EntitySet="STR_ReportOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_WorkField" Association="StoriesModel.FK_UserProfile_WorkField">
+            <End Role="PRF_WorkField" EntitySet="PRF_WorkField" />
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+          </AssociationSet>
+          <EntitySet Name="STR_StoryStatus" EntityType="StoriesModel.STR_StoryStatus" />
+          <EntitySet Name="STR_LikeOfStory" EntityType="StoriesModel.STR_LikeOfStory" />
+          <AssociationSet Name="FK_STR_LikeOfStory_PRF_UserProfile" Association="StoriesModel.FK_STR_LikeOfStory_PRF_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_LikeOfStory" EntitySet="STR_LikeOfStory" />
+          </AssociationSet>
+          <EntitySet Name="STR_Story" EntityType="StoriesModel.STR_Story" />
+          <AssociationSet Name="FK_Story_UserProfile" Association="StoriesModel.FK_Story_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="STR_Story" EntitySet="STR_Story" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommentOfStory_Story" Association="StoriesModel.FK_CommentOfStory_Story">
+            <End Role="STR_Story" EntitySet="STR_Story" />
+            <End Role="STR_CommentOfStory" EntitySet="STR_CommentOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STR_LikeOfStory_STR_Story" Association="StoriesModel.FK_STR_LikeOfStory_STR_Story">
+            <End Role="STR_Story" EntitySet="STR_Story" />
+            <End Role="STR_LikeOfStory" EntitySet="STR_LikeOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RateOfStory_Story" Association="StoriesModel.FK_RateOfStory_Story">
+            <End Role="STR_Story" EntitySet="STR_Story" />
+            <End Role="STR_RateOfStory" EntitySet="STR_RateOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportOfStory_Story" Association="StoriesModel.FK_ReportOfStory_Story">
+            <End Role="STR_Story" EntitySet="STR_Story" />
+            <End Role="STR_ReportOfStory" EntitySet="STR_ReportOfStory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Story_Topic" Association="StoriesModel.FK_Story_Topic">
+            <End Role="STR_Topic" EntitySet="STR_Topic" />
+            <End Role="STR_Story" EntitySet="STR_Story" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STR_Story_STR_StoryStatus" Association="StoriesModel.FK_STR_Story_STR_StoryStatus">
+            <End Role="STR_StoryStatus" EntitySet="STR_StoryStatus" />
+            <End Role="STR_Story" EntitySet="STR_Story" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagOfStory_Story" Association="StoriesModel.FK_TagOfStory_Story">
+            <End Role="STR_Story" EntitySet="STR_Story" />
+            <End Role="STR_TagOfStory" EntitySet="STR_TagOfStory" />
+          </AssociationSet>
+          <EntitySet Name="PRF_UserAccount" EntityType="StoriesModel.PRF_UserAccount" />
+          <AssociationSet Name="FK_UserAccount_UserProfile" Association="StoriesModel.FK_UserAccount_UserProfile">
+            <End Role="PRF_UserProfile" EntitySet="PRF_UserProfile" />
+            <End Role="PRF_UserAccount" EntitySet="PRF_UserAccount" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="PRF_UserProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="EducationLevelId" Type="Int32" />
+          <Property Name="EducationFieldId" Type="Int32" />
+          <Property Name="WorkFieldId" Type="Int32" />
+          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProfileImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="PRF_EducationField" Relationship="StoriesModel.FK_UserProfile_EducationField" FromRole="PRF_UserProfile" ToRole="PRF_EducationField" />
+          <NavigationProperty Name="PRF_EducationLevel" Relationship="StoriesModel.FK_UserProfile_EducationLevel" FromRole="PRF_UserProfile" ToRole="PRF_EducationLevel" />
+          <NavigationProperty Name="PRF_Follow" Relationship="StoriesModel.FK_PRF_Follow_PRF_UserProfile" FromRole="PRF_UserProfile" ToRole="PRF_Follow" />
+          <NavigationProperty Name="PRF_Follow1" Relationship="StoriesModel.FK_PRF_Follow_PRF_UserProfile1" FromRole="PRF_UserProfile" ToRole="PRF_Follow" />
+          <NavigationProperty Name="PRF_UserInterest" Relationship="StoriesModel.FK_UserInterest_UserProfile" FromRole="PRF_UserProfile" ToRole="PRF_UserInterest" />
+          <NavigationProperty Name="STR_CommentOfStory" Relationship="StoriesModel.FK_CommentOfStory_UserProfile" FromRole="PRF_UserProfile" ToRole="STR_CommentOfStory" />
+          <NavigationProperty Name="STR_RateOfStory" Relationship="StoriesModel.FK_RateOfStory_UserProfile" FromRole="PRF_UserProfile" ToRole="STR_RateOfStory" />
+          <NavigationProperty Name="STR_ReportOfComment" Relationship="StoriesModel.FK_ReportOfComment_UserProfile" FromRole="PRF_UserProfile" ToRole="STR_ReportOfComment" />
+          <NavigationProperty Name="STR_ReportOfStory" Relationship="StoriesModel.FK_ReportOfStory_UserProfile" FromRole="PRF_UserProfile" ToRole="STR_ReportOfStory" />
+          <NavigationProperty Name="PRF_WorkField" Relationship="StoriesModel.FK_UserProfile_WorkField" FromRole="PRF_UserProfile" ToRole="PRF_WorkField" />
+          <NavigationProperty Name="STR_LikeOfStory" Relationship="StoriesModel.FK_STR_LikeOfStory_PRF_UserProfile" FromRole="PRF_UserProfile" ToRole="STR_LikeOfStory" />
+          <NavigationProperty Name="STR_Story" Relationship="StoriesModel.FK_Story_UserProfile" FromRole="PRF_UserProfile" ToRole="STR_Story" />
+          <NavigationProperty Name="PRF_UserAccount" Relationship="StoriesModel.FK_UserAccount_UserProfile" FromRole="PRF_UserProfile" ToRole="PRF_UserAccount" />
+        </EntityType>
+        <Association Name="FK_UserProfile_EducationField">
+          <End Type="StoriesModel.PRF_EducationField" Role="PRF_EducationField" Multiplicity="0..1" />
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_EducationField">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserProfile">
+              <PropertyRef Name="EducationFieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfile_EducationLevel">
+          <End Type="StoriesModel.PRF_EducationLevel" Role="PRF_EducationLevel" Multiplicity="0..1" />
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_EducationLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserProfile">
+              <PropertyRef Name="EducationLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRF_Follow_PRF_UserProfile">
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="1" />
+          <End Type="StoriesModel.PRF_Follow" Role="PRF_Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_Follow">
+              <PropertyRef Name="FollowingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRF_Follow_PRF_UserProfile1">
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="1" />
+          <End Type="StoriesModel.PRF_Follow" Role="PRF_Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_Follow">
+              <PropertyRef Name="FollowedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInterest_UserProfile">
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="1" />
+          <End Type="StoriesModel.PRF_UserInterest" Role="PRF_UserInterest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserInterest">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommentOfStory_UserProfile">
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="1" />
+          <End Type="StoriesModel.STR_CommentOfStory" Role="STR_CommentOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_CommentOfStory">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RateOfStory_UserProfile">
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="1" />
+          <End Type="StoriesModel.STR_RateOfStory" Role="STR_RateOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_RateOfStory">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfComment_UserProfile">
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="1" />
+          <End Type="StoriesModel.STR_ReportOfComment" Role="STR_ReportOfComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfComment">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfStory_UserProfile">
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="1" />
+          <End Type="StoriesModel.STR_ReportOfStory" Role="STR_ReportOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfStory">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfile_WorkField">
+          <End Type="StoriesModel.PRF_WorkField" Role="PRF_WorkField" Multiplicity="0..1" />
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_WorkField">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserProfile">
+              <PropertyRef Name="WorkFieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="STR_StoryStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Caption" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="STR_Story" Relationship="StoriesModel.FK_STR_Story_STR_StoryStatus" FromRole="STR_StoryStatus" ToRole="STR_Story" />
+        </EntityType>
+        <EntityType Name="STR_LikeOfStory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="StoryId" Type="Guid" Nullable="false" />
+          <Property Name="UserProfileId" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="Boolean" Nullable="false" />
+          <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_STR_LikeOfStory_PRF_UserProfile" FromRole="STR_LikeOfStory" ToRole="PRF_UserProfile" />
+          <NavigationProperty Name="STR_Story" Relationship="StoriesModel.FK_STR_LikeOfStory_STR_Story" FromRole="STR_LikeOfStory" ToRole="STR_Story" />
+        </EntityType>
+        <Association Name="FK_STR_LikeOfStory_PRF_UserProfile">
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="1" />
+          <End Type="StoriesModel.STR_LikeOfStory" Role="STR_LikeOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_LikeOfStory">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="STR_Story">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserProfileId" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TopicId" Type="Int32" Nullable="false" />
+          <Property Name="StoryImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="StoryStatusId" Type="Int32" Nullable="false" />
+          <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_Story_UserProfile" FromRole="STR_Story" ToRole="PRF_UserProfile" />
+          <NavigationProperty Name="STR_CommentOfStory" Relationship="StoriesModel.FK_CommentOfStory_Story" FromRole="STR_Story" ToRole="STR_CommentOfStory" />
+          <NavigationProperty Name="STR_LikeOfStory" Relationship="StoriesModel.FK_STR_LikeOfStory_STR_Story" FromRole="STR_Story" ToRole="STR_LikeOfStory" />
+          <NavigationProperty Name="STR_RateOfStory" Relationship="StoriesModel.FK_RateOfStory_Story" FromRole="STR_Story" ToRole="STR_RateOfStory" />
+          <NavigationProperty Name="STR_ReportOfStory" Relationship="StoriesModel.FK_ReportOfStory_Story" FromRole="STR_Story" ToRole="STR_ReportOfStory" />
+          <NavigationProperty Name="STR_Topic" Relationship="StoriesModel.FK_Story_Topic" FromRole="STR_Story" ToRole="STR_Topic" />
+          <NavigationProperty Name="STR_StoryStatus" Relationship="StoriesModel.FK_STR_Story_STR_StoryStatus" FromRole="STR_Story" ToRole="STR_StoryStatus" />
+          <NavigationProperty Name="STR_TagOfStory" Relationship="StoriesModel.FK_TagOfStory_Story" FromRole="STR_Story" ToRole="STR_TagOfStory" />
+        </EntityType>
+        <Association Name="FK_Story_UserProfile">
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="1" />
+          <End Type="StoriesModel.STR_Story" Role="STR_Story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_Story">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommentOfStory_Story">
+          <End Type="StoriesModel.STR_Story" Role="STR_Story" Multiplicity="1" />
+          <End Type="StoriesModel.STR_CommentOfStory" Role="STR_CommentOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Story">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_CommentOfStory">
+              <PropertyRef Name="StoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STR_LikeOfStory_STR_Story">
+          <End Type="StoriesModel.STR_Story" Role="STR_Story" Multiplicity="1" />
+          <End Type="StoriesModel.STR_LikeOfStory" Role="STR_LikeOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Story">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_LikeOfStory">
+              <PropertyRef Name="StoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RateOfStory_Story">
+          <End Type="StoriesModel.STR_Story" Role="STR_Story" Multiplicity="1" />
+          <End Type="StoriesModel.STR_RateOfStory" Role="STR_RateOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Story">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_RateOfStory">
+              <PropertyRef Name="StoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportOfStory_Story">
+          <End Type="StoriesModel.STR_Story" Role="STR_Story" Multiplicity="1" />
+          <End Type="StoriesModel.STR_ReportOfStory" Role="STR_ReportOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Story">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_ReportOfStory">
+              <PropertyRef Name="StoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Story_Topic">
+          <End Type="StoriesModel.STR_Topic" Role="STR_Topic" Multiplicity="1" />
+          <End Type="StoriesModel.STR_Story" Role="STR_Story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_Story">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STR_Story_STR_StoryStatus">
+          <End Type="StoriesModel.STR_StoryStatus" Role="STR_StoryStatus" Multiplicity="1" />
+          <End Type="StoriesModel.STR_Story" Role="STR_Story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_StoryStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_Story">
+              <PropertyRef Name="StoryStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagOfStory_Story">
+          <End Type="StoriesModel.STR_Story" Role="STR_Story" Multiplicity="1" />
+          <End Type="StoriesModel.STR_TagOfStory" Role="STR_TagOfStory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STR_Story">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STR_TagOfStory">
+              <PropertyRef Name="StoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PRF_UserAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserProfileId" Type="Guid" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Token" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PRF_UserProfile" Relationship="StoriesModel.FK_UserAccount_UserProfile" FromRole="PRF_UserAccount" ToRole="PRF_UserProfile" />
+        </EntityType>
+        <Association Name="FK_UserAccount_UserProfile">
+          <End Type="StoriesModel.PRF_UserProfile" Role="PRF_UserProfile" Multiplicity="0..1" />
+          <End Type="StoriesModel.PRF_UserAccount" Role="PRF_UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRF_UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PRF_UserAccount">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StoriesModelStoreContainer" CdmEntityContainer="StoriesEntities">
+          <EntitySetMapping Name="PRF_EducationField">
+            <EntityTypeMapping TypeName="StoriesModel.PRF_EducationField">
+              <MappingFragment StoreEntitySet="PRF_EducationField">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRF_EducationLevel">
+            <EntityTypeMapping TypeName="StoriesModel.PRF_EducationLevel">
+              <MappingFragment StoreEntitySet="PRF_EducationLevel">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRF_Follow">
+            <EntityTypeMapping TypeName="StoriesModel.PRF_Follow">
+              <MappingFragment StoreEntitySet="PRF_Follow">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FollowingUserId" ColumnName="FollowingUserId" />
+                <ScalarProperty Name="FollowedUserId" ColumnName="FollowedUserId" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRF_Interest">
+            <EntityTypeMapping TypeName="StoriesModel.PRF_Interest">
+              <MappingFragment StoreEntitySet="PRF_Interest">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRF_UserInterest">
+            <EntityTypeMapping TypeName="StoriesModel.PRF_UserInterest">
+              <MappingFragment StoreEntitySet="PRF_UserInterest">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InterestId" ColumnName="InterestId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRF_WorkField">
+            <EntityTypeMapping TypeName="StoriesModel.PRF_WorkField">
+              <MappingFragment StoreEntitySet="PRF_WorkField">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_CommentOfStory">
+            <EntityTypeMapping TypeName="StoriesModel.STR_CommentOfStory">
+              <MappingFragment StoreEntitySet="STR_CommentOfStory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="StoryId" ColumnName="StoryId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="IsReply" ColumnName="IsReply" />
+                <ScalarProperty Name="ReplyToId" ColumnName="ReplyToId" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_RateOfStory">
+            <EntityTypeMapping TypeName="StoriesModel.STR_RateOfStory">
+              <MappingFragment StoreEntitySet="STR_RateOfStory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StoryId" ColumnName="StoryId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="RateSubjectId" ColumnName="RateSubjectId" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_RateSubject">
+            <EntityTypeMapping TypeName="StoriesModel.STR_RateSubject">
+              <MappingFragment StoreEntitySet="STR_RateSubject">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_ReportOfComment">
+            <EntityTypeMapping TypeName="StoriesModel.STR_ReportOfComment">
+              <MappingFragment StoreEntitySet="STR_ReportOfComment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="ReportSubjectId" ColumnName="ReportSubjectId" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_ReportOfStory">
+            <EntityTypeMapping TypeName="StoriesModel.STR_ReportOfStory">
+              <MappingFragment StoreEntitySet="STR_ReportOfStory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="StoryId" ColumnName="StoryId" />
+                <ScalarProperty Name="ReportSubjectId" ColumnName="ReportSubjectId" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_ReportSubject">
+            <EntityTypeMapping TypeName="StoriesModel.STR_ReportSubject">
+              <MappingFragment StoreEntitySet="STR_ReportSubject">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_Tag">
+            <EntityTypeMapping TypeName="StoriesModel.STR_Tag">
+              <MappingFragment StoreEntitySet="STR_Tag">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_TagOfStory">
+            <EntityTypeMapping TypeName="StoriesModel.STR_TagOfStory">
+              <MappingFragment StoreEntitySet="STR_TagOfStory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StoryId" ColumnName="StoryId" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_Topic">
+            <EntityTypeMapping TypeName="StoriesModel.STR_Topic">
+              <MappingFragment StoreEntitySet="STR_Topic">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_UserTopic">
+            <EntityTypeMapping TypeName="StoriesModel.STR_UserTopic">
+              <MappingFragment StoreEntitySet="STR_UserTopic">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRF_UserProfile">
+            <EntityTypeMapping TypeName="StoriesModel.PRF_UserProfile">
+              <MappingFragment StoreEntitySet="PRF_UserProfile">
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="WorkFieldId" ColumnName="WorkFieldId" />
+                <ScalarProperty Name="EducationFieldId" ColumnName="EducationFieldId" />
+                <ScalarProperty Name="EducationLevelId" ColumnName="EducationLevelId" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_StoryStatus">
+            <EntityTypeMapping TypeName="StoriesModel.STR_StoryStatus">
+              <MappingFragment StoreEntitySet="STR_StoryStatus">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_LikeOfStory">
+            <EntityTypeMapping TypeName="StoriesModel.STR_LikeOfStory">
+              <MappingFragment StoreEntitySet="STR_LikeOfStory">
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="StoryId" ColumnName="StoryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STR_Story">
+            <EntityTypeMapping TypeName="StoriesModel.STR_Story">
+              <MappingFragment StoreEntitySet="STR_Story">
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="StoryStatusId" ColumnName="StoryStatusId" />
+                <ScalarProperty Name="StoryImage" ColumnName="StoryImage" />
+                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRF_UserAccount">
+            <EntityTypeMapping TypeName="StoriesModel.PRF_UserAccount">
+              <MappingFragment StoreEntitySet="PRF_UserAccount">
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

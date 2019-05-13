@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CF3B3D1A-EE42-4703-B29D-4C33FCC21C32}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Stories.Dal</RootNamespace>
+    <AssemblyName>Stories.Dal</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataEntity\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\PRF_EducationField.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\PRF_EducationLevel.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\PRF_Follow.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\PRF_Interest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\PRF_UserAccount.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\PRF_UserInterest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\PRF_UserProfile.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\PRF_WorkField.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_CommentOfStory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_LikeOfStory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_RateOfStory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_RateSubject.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_ReportOfComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_ReportOfStory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_ReportSubject.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_Story.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_StoryStatus.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_Tag.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_TagOfStory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_Topic.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\STR_UserTopic.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Gateway\LikeOfStoryGateway.cs" />
+    <Compile Include="Gateway\CommentOfStoryGateway.cs" />
+    <Compile Include="Gateway\FollowGateway.cs" />
+    <Compile Include="Gateway\StoryStatusGateway.cs" />
+    <Compile Include="Gateway\UserTopicGateway.cs" />
+    <Compile Include="Gateway\WorkFieldGateway.cs" />
+    <Compile Include="Gateway\UserInterestGateway.cs" />
+    <Compile Include="Gateway\UserAccountGateway.cs" />
+    <Compile Include="Gateway\EducationFieldGateway.cs" />
+    <Compile Include="Gateway\TagOfStoryGateway.cs" />
+    <Compile Include="Gateway\TagGateway.cs" />
+    <Compile Include="Gateway\ReportSubjectGateway.cs" />
+    <Compile Include="Gateway\RateSubjectGateway.cs" />
+    <Compile Include="Gateway\InterestGateway.cs" />
+    <Compile Include="Gateway\EducationLevelGateway.cs" />
+    <Compile Include="Gateway\TopicGateway.cs" />
+    <Compile Include="Gateway\RateOfStoryGateway.cs" />
+    <Compile Include="Gateway\ReportOfStoryGateway.cs" />
+    <Compile Include="Gateway\ReportOfCommentGateway.cs" />
+    <Compile Include="Gateway\StoryGateway.cs" />
+    <Compile Include="Gateway\UserProfileGateway.cs" />
+    <Compile Include="IGateway.cs" />
+    <Compile Include="Interface\ICommentOfStoryGateway.cs" />
+    <Compile Include="Interface\IEducationFieldGateway.cs" />
+    <Compile Include="Interface\IEducationLevelGateway.cs" />
+    <Compile Include="Interface\IFollowGateway.cs" />
+    <Compile Include="Interface\IInterestGateway.cs" />
+    <Compile Include="Interface\ILikeOfStory.cs" />
+    <Compile Include="Interface\IRateOfStoryGateway.cs" />
+    <Compile Include="Interface\IRateSubjectGateway.cs" />
+    <Compile Include="Interface\IReportOfCommentGateway.cs" />
+    <Compile Include="Interface\IReportOfStoryGateway.cs" />
+    <Compile Include="Interface\IReportSubjectGateway.cs" />
+    <Compile Include="Interface\IStoryGateway.cs" />
+    <Compile Include="Interface\IStoryStatusGateway.cs" />
+    <Compile Include="Interface\ITagGateway.cs" />
+    <Compile Include="Interface\ITagOfStoryGateway.cs" />
+    <Compile Include="Interface\ITopicGateway.cs" />
+    <Compile Include="Interface\IUserAccountGateway.cs" />
+    <Compile Include="Interface\IUserInterestGateway.cs" />
+    <Compile Include="Interface\IUserProfileGateway.cs" />
+    <Compile Include="Interface\IUserTopicGateway.cs" />
+    <Compile Include="Interface\IWorkFieldGateway.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="DataEntity\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataEntity\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Stories.Helpers\Stories.Helpers.csproj">
+      <Project>{5e41a804-6910-4311-bdba-ceab799c5268}</Project>
+      <Name>Stories.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stories.Models\Stories.Models.csproj">
+      <Project>{fe9d2035-bee0-4fa4-b569-8e6c3d825c99}</Project>
+      <Name>Stories.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataEntity\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataEntity\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Stories.Models.Story>
+
+
+@foreach (var item in Model)
+{
+    @Html.DisplayFor(x => item, "StoryBriefIndex")
+}

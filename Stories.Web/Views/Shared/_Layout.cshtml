@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title -->
+    <title>@ViewBag.Title | کافه نگارش</title>
+
+    <!-- Favicon -->
+    @*<link rel="icon" href="~/Content/favicon.ico">*@
+
+    <!-- Core Stylesheet -->
+    <link href="~/Content/css/fonts.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-free-5.5.0-web/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/Content/slick/slick.css" rel="stylesheet" />
+    <link href="~/Content/slick/slick-theme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    @RenderSection("Styles", false)
+</head>
+<body>
+
+    <div id="divHeader" class="text-center">
+        <img src="~/Content/img/header-loading.gif" />
+    </div>
+
+    @RenderBody()
+
+
+    <script src="~/Scripts/jquery/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/slick/slick.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#divHeader').load('@Url.Action("PartialHeader", "WebLayout")', afterHeaderLoad);
+        });
+
+        var afterHeaderLoad = function () {
+            $('#topicCourser').slick({
+                rtl: true,
+                slidesToShow: 8,
+                slidesToScroll: 1,
+                arrows: true,
+                swipe: false,
+                responsive: [
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 14,
+                            slidesToScroll: 1,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 769,
+                        settings: {
+                            slidesToShow: 10,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 6,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        }
+    </script>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+    @RenderSection("Scripts", false)
+</body>
+</html>

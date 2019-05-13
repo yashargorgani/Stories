@@ -1,0 +1,14 @@
+﻿@model Stories.Models.UserProfile
+
+@{
+    string b64 = Convert.ToBase64String(Model.ProfileImage == null ? new byte[0] : Model.ProfileImage);
+}
+
+<span>
+    @if (Model.ProfileImage != null)
+    {
+        <img src="@string.Format("data:image/jpg;base64,{0}", b64)" class="rounded-circle" height="30" width="30" />
+    }
+
+    @Html.DisplayFor(x => x.Name)
+</span>

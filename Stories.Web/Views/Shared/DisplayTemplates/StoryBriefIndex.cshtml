@@ -1,0 +1,80 @@
+﻿@model Stories.Models.Story
+@using Stories.Models
+@using Stories.Helpers
+@using Stories.Web.Helpers
+
+@{
+    string b64 = Convert.ToBase64String(Model.StoryImage == null ? new byte[0] : Model.StoryImage);
+}
+
+<div class="card w-100 mb-2">
+    <div class="row">
+        <div class="col-md-3">
+            @if (Model.StoryImage != null)
+            {
+                <img class="m-1 w-100 img-fluid" style="max-height: 200px; max-height: 200px" src="@string.Format("data:image/png;base64,{0}", b64)">
+            }
+
+        </div>
+        <div class="card-body col-md-9">
+
+            <h5 class="card-title rtl" style="font-family: Vazir-Medium">
+                @Model.Title
+            </h5>
+            <h6 class="card-subtitle text-muted">
+                @Model.TopicCaption
+            </h6>
+
+            <label class="mt-2">
+                <span style="font-family:Vazir-Light-FD">@Model.ActionDate.ToPersianDateString()</span>
+
+                @if (Model.StoryStatusValue == StoryStatusValue.Publish)
+                {
+                    <label class="badge badge-success">
+                        @Model.StoryStatusCaption
+                    </label>
+                }
+                else if (Model.StoryStatusValue == StoryStatusValue.Draft)
+                {
+                    <label class="badge badge-secondary">
+                        @Model.StoryStatusCaption
+                    </label>
+                }
+            </label>
+
+            <p class="card-text">
+                @if (Model.Body.Length > 250)
+                {
+                    <span>
+                        @Html.Raw(Model.Body.Substring(0, 250))
+                        ...
+                    </span>
+                }
+                else
+                {
+                    <span>
+                        @Html.Raw(Model.Body)
+                    </span>
+                }
+            </p>
+
+            <a class="card-link" href="@Url.Action("View", new { Model.Id })">مشاهده</a>
+
+            <div class="dropdown float-left ml-2">
+                <a class="card-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h"></i>
+                </a>
+
+                @if (User.Identity.ProfileId() == Model.UserProfileId)
+                {
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="@Url.Action("Edit", "Story", new {@id = Model.Id })">ویرایش</a>
+                        <a class="dropdown-item" href="@Url.Action("Delete", "Story", new { @id = Model.Id})" onclick="return confirm('آیا مطمئن هستید؟')">حذف</a>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>

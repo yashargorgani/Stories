@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Stories.Models.Story>
+
+<div class="card-columns">
+    @foreach (var item in Model)
+    {
+        @Html.DisplayFor(x => item, "StoryHome")
+    }
+</div>
+

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Stories.Models.Story>
+
+@{
+    ViewBag.Title = "نگارش های من";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="page-header">
+        نگارش‌های من
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10">
+
+            @foreach (var item in Model)
+            {
+                @Html.DisplayFor(x => item, "StoryBriefIndex")
+            }
+
+        </div>
+
+    </div>
+</div>
+

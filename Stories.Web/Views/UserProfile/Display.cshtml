@@ -1,0 +1,80 @@
+﻿@model Stories.Models.UserProfile
+
+@{
+    ViewBag.Title = $"{Model.Name}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string b64 = Convert.ToBase64String(Model.ProfileImage == null ? new byte[0] : Model.ProfileImage);
+    bool owns = (bool)ViewBag.Owns;
+}
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#topics_div').load('@Url.Action("PartialUserTopics", "Topic", new { UserProfileId = Model.Id })');
+            $('#stories_div').load('@Url.Action("PartialIndex", "Story", new { UserProfileId = Model.Id })');
+        })
+    </script>
+}
+
+    <div class="container mt-5 mb-5">
+        <div class="page-header">
+            پروفایل نگارنده
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-10">
+
+                <div class="jumbotron-fluid">
+
+                    <img src="@string.Format("data:image/jpg;base64,{0}", b64)" class="rounded-circle" alt="@Model.Name" height="70" width="70" />
+
+                    <h4 style="display:inline-block">
+                        @Html.DisplayFor(x => x.Name)
+                    </h4>
+
+                    @if (!owns && User.Identity.IsAuthenticated)
+                    {
+                        //Handeling Follow Process
+                        <button class="btn btn-outline-info btn-sm">دنبال کردن</button>
+                    }
+
+                    @if (owns)
+                    {
+                        <div class="float-left">
+                            <div class="btn-group btn-group-lg" role="group">
+                                <button class="btn btn-lg btn-outline-secondary">دنبال شونده‌ها</button>
+                                <button class="btn btn-lg btn-outline-secondary">دنبال کننده‌ها</button>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="section-header mt-5">
+                        درباره‌ی نگارنده
+                    </div>
+                    <p class="lead m-5">
+                        @Html.DisplayFor(x => x.Bio)
+                    </p>
+
+                    <div class="section-header">
+                        تاپیک‌ها
+                    </div>
+                    <div id="topics_div" class="lead m-5">
+                        <div class="text-center">
+                            <img src="~/Content/img/header-loading.gif" />
+                        </div>
+                    </div>
+
+                    <div class="section-header">
+                        نگارش‌ها
+                    </div>
+                    <div id="stories_div" class="lead m-5">
+                        <div class="text-center">
+                            <img src="~/Content/img/header-loading.gif" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,53 @@
+﻿@model Stories.Models.Story
+@using Stories.Models
+@using Stories.Helpers
+@using Stories.Web.Helpers
+
+@{
+    string storyImage = Convert.ToBase64String(Model.StoryImage == null ? new byte[0] : Model.StoryImage);
+    string profileImage = Convert.ToBase64String(Model.UserProfileImage == null ? new byte[0] : Model.UserProfileImage);
+}
+
+<div class="card">
+    @if (Model.StoryImage != null)
+    {
+        <img src="@string.Format("data:image/jpg;base64,{0}", storyImage)" class="card-img-top" alt="@Model.Title">
+    }
+
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <h6 class="card-title">@Model.TopicCaption</h6>
+        <p class="card-text">
+            @if (Model.Body.Length > 250)
+            {
+            <span>
+                @Html.Raw(Model.Body.Substring(0, 250))
+                ...
+            </span>
+            }
+            else
+            {
+                <span>
+                    @Html.Raw(Model.Body)
+                </span>
+            }
+        </p>
+
+        <a class="card-link" href="@Url.Action("View", "Story", new { Model.Id })">مشاهده</a>
+    </div>
+
+    <div class="card-footer">
+
+        <span>
+            @if (Model.UserProfileImage != null)
+            {
+                <img src="@string.Format("data:image/jpg;base64,{0}", profileImage)" class="rounded-circle" height="30" width="30" />
+            }
+
+            @Html.DisplayFor(x => x.UserProfileName)
+        </span>
+
+        <i class="far fa-clock"></i>
+        <span style="font-family:Vazir-Light-FD">@Model.ActionDate.ToPersianDateString()</span>
+    </div>
+</div>

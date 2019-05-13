@@ -1,0 +1,104 @@
+﻿@model Stories.Models.UserProfile
+
+@{
+    ViewBag.Title = "ویرایش پروفایل";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles
+{
+    <link href="~/Scripts/Croppie-2.6.2/croppie.css" rel="stylesheet" />
+}
+
+@section Scripts
+{
+    <script src="~/Scripts/Croppie-2.6.2/croppie.min.js"></script>
+    <script src="~/Scripts/Croppie-2.6.2/exif.js"></script>
+
+    <script>
+        $('document').ready(function () {
+            var basic = $('#main-cropper').croppie({
+                enableExif: true,
+                viewport: {
+                    width: 250,
+                    height: 250,
+                    type: 'circle',
+                },
+                boundary: {
+                    width: 250,
+                    height: 250
+                }
+            });
+
+            function readFile(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#main-cropper').croppie('bind', {
+                            url: e.target.result
+                        });
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $('#upload').on('change', function () {
+                readFile(this);
+
+                $('form').submit(function () {
+                    basic.croppie('result', {
+                        type: 'base64',
+                        circle: true,
+                        format: 'png'
+                    }).then(function (resp) {
+                        $('#profileImg').val(resp);
+                    });
+                });
+            });
+        });
+    </script>
+}
+
+    <div class="container mt-5 mb-5">
+        <div class="page-header">
+            ویرایش پروفایل
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-10">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.HiddenFor(x => x.RegisterDate)
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.HiddenFor(x => x.ProfileImage)
+                    string b64 = Convert.ToBase64String(Model.ProfileImage == null ? new byte[0] : Model.ProfileImage);
+
+                    <div class="form-group text-center">
+                        <div>
+                            <img id="main-cropper" src="@string.Format("data:image/jpg;base64,{0}", b64)" />
+                        </div>
+
+                        <input type="hidden" id="profileImg" name="profileImg" />
+                        <label class="btn btn-light">
+                            انتخاب فایل
+                            <input type="file" id="upload" accept="image/*" hidden>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = "نام خود را وارد نمایید ..." })
+                        @Html.ValidationMessageFor(x => x.Name, "", new { @class = "validation-alert" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextAreaFor(x => x.Bio, new { @class = "form-control", @placeholder = "کمی راجع به خود بنویسید ...", @rows = 4 })
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block btn-outline-secondary">ذخیره</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+

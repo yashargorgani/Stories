@@ -1,0 +1,116 @@
+﻿@model Stories.Web.Models.StoryComposeViewModel
+@using Stories.Models
+@{
+    ViewBag.Title = "نگارش جدید";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles
+{
+    <link href="~/Scripts/select2/dist/css/select2.css" rel="stylesheet" />
+}
+
+@section Scripts
+{
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('Body');
+        })
+    </script>
+
+    <script src="~/Scripts/select2/dist/js/select2.full.js"></script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('#TopicId').select2({
+                dir: 'rtl',
+                language: 'fa',
+                placeholder: 'موضوع ...'
+            });
+        })
+    </script>
+    <script>
+        $(function () {
+
+            $('#divTags').load("@Url.Action("StoryTags", "Story")", afterTagsLoad);
+
+            function afterTagsLoad() {
+                $('#Tags').select2({
+                    dir: 'rtl',
+                    language: 'fa',
+                    placeholder: 'کلمات کلیدی ...',
+                    tags: true
+                });
+            }
+        })
+    </script>
+
+    <script src="~/Scripts/storyCompose.js"></script>
+}
+<div class="container mt-5 mb-5">
+    <div class="page-header">
+        نگارش جدید
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-10">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.DropDownListFor(x => x.TopicId, (List<SelectListItem>)ViewBag.Topics, "موضوع ...", new { @class = "form-control select2" })
+                    @Html.ValidationMessageFor(x => x.TopicId, "", new { @class = "validation-alert" })
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Title, new { @class = "form-control post-title", @placeholder = "عنوان ..." })
+                    @Html.ValidationMessageFor(x => x.Title, "", new { @class = "validation-alert" })
+                </div>
+
+                <div class="text-center">
+                    <div class="jumbotron">
+                        <div class="form-group">
+                            <img id="output" class="img-fluid" />
+                            @Html.HiddenFor(x => x.StoryCoverImgResized)
+                        </div>
+
+
+                        <div class="form-group m-0">
+                            <label class="btn btn-outline-secondary m-0">
+                                انتخاب عکس
+                                <input type="file" id="postCoverFile" name="postCoverFile" hidden>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.TextAreaFor(x => x.Body, new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(x => x.Body, "", new { @class = "validation-alert" })*@
+                </div>
+
+                <div class="form-group">
+                    @foreach (var item in (List<SelectListItem>)ViewBag.StoryStatuses)
+                    {
+                        <label class="btn btn-light">
+                            <input type="radio" id="@item.Value" value="@item.Value" name="StoryStatusId" checked=@item.Selected />
+                            @item.Text
+                        </label>
+                    }
+                </div>
+
+                <div id="divTags" class="text-center">
+                    <img src="~/Content/img/header-loading.gif" />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-secondary btn-block">ذخیره</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

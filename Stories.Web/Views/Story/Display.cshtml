@@ -1,0 +1,72 @@
+﻿@model Stories.Models.Story
+@using Stories.Helpers
+
+@{
+    ViewBag.Title = $"{Model.Title} - {Model.TopicCaption}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string b64 = Convert.ToBase64String(Model.StoryImage == null ? new byte[0] : Model.StoryImage);
+}
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#userProfileInfo').load('@Url.Action("PartialUserProfile", "UserProfile", new { @id = Model.UserProfileId })')
+        });
+    </script>
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-10">
+
+            <ul class="list-inline p-0" style="font-family: Vazir-Light">
+                <li class="list-inline-item m-0">
+                    <span id="userProfileInfo"></span>
+                </li>
+                <li class="list-inline-item"></li>
+                <li class="list-inline-item">
+                    <label>
+                        <i class="far fa-clock"></i>
+                        @Model.ActionDate.ToPersianDateString()
+                    </label>
+                </li>
+            </ul>
+
+            <article>
+                <header>
+                    <h1 style="font-family: Vazir-Medium">@Model.Title</h1>
+
+                    <h5>
+                        @Model.TopicCaption
+                    </h5>
+                </header>
+
+                <div class="text-center mt-5 mb-5">
+                    <img src="@string.Format("data:image/jpg;base64,{0}", b64)" class="rounded" style="max-width: 90%; height:auto" />
+                </div>
+
+                <div class="article-content">
+                    @Html.Raw(Model.Body)
+                </div>
+
+                <div class="p-2">
+                    <label>
+                        <i class="fa fa-tags" aria-hidden="true"></i>
+                        کلمات کلیدی:
+                    </label>
+
+                    @foreach(var item in Model.Tags)
+                    {
+                        <a href="#" class="btn btn-light btn-sm">@item.Caption</a>
+                    }
+
+                </div>
+
+            </article>
+
+        </div>
+    </div>
+</div>
+

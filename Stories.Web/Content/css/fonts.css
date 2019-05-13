@@ -1,0 +1,61 @@
+﻿@font-face {
+    font-family: Vazir-Thin;
+    src: url('../fonts/Vazir/Vazir-Thin.ttf');
+}
+
+@font-face {
+    font-family: Vazir-Light;
+    src: url('../fonts/Vazir/Vazir-Light.ttf');
+}
+
+@font-face {
+    font-family: Vazir;
+    src: url('../fonts/Vazir/Vazir.ttf');
+}
+
+@font-face {
+    font-family: Vazir-Medium;
+    src: url('../fonts/Vazir/Vazir-Medium.ttf');
+}
+
+@font-face {
+    font-family: Vazir-Bold;
+    src: url('../fonts/Vazir/Vazir-Bold.ttf');
+}
+
+@font-face {
+    font-family: Vazir-Black;
+    src: url('../fonts/Vazir/Vazir-Black.ttf');
+}
+
+
+/*DIGITS*/
+@font-face {
+    font-family: Vazir-Thin-FD;
+    src: url('../fonts/Vazir/Farsi-Digits/Vazir-Thin-FD.ttf');
+}
+
+@font-face {
+    font-family: Vazir-Light-FD;
+    src: url('../fonts/Vazir/Farsi-Digits/Vazir-Light-FD.ttf');
+}
+
+@font-face {
+    font-family: Vazir-Medium-FD;
+    src: url('../fonts/Vazir/Farsi-Digits/Vazir-Medium-FD.ttf');
+}
+
+@font-face {
+    font-family: Vazir-FD;
+    src: url('../fonts/Vazir/Farsi-Digits/Vazir-FD.ttf');
+}
+
+@font-face {
+    font-family: Vazir-Bold-FD;
+    src: url('../fonts/Vazir/Farsi-Digits/Vazir-Bold-FD.ttf');
+}
+
+@font-face {
+    font-family: Vazir-Black-FD;
+    src: url('../fonts/Vazir/Farsi-Digits/Vazir-Black-FD.ttf');
+}
