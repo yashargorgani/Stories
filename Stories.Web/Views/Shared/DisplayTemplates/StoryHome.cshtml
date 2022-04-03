@@ -44,7 +44,10 @@
                 <img src="@string.Format("data:image/jpg;base64,{0}", profileImage)" class="rounded-circle" height="30" width="30" />
             }
 
+        <a href="@Url.Action("Display", "UserProfile", new {id = Model.UserProfileId})">
             @Html.DisplayFor(x => x.UserProfileName)
+        </a>
+            
         </span>
 
         <i class="far fa-clock"></i>

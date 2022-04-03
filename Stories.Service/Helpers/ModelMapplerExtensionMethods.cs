@@ -122,5 +122,19 @@ namespace Stories.Service.Helpers
                 RegisterDate = entity.RegisterDate
             };
         }
+
+        public static RateOfStory Map(this STR_RateOfStory entity)
+        {
+            return new RateOfStory
+            {
+                Id = entity.Id,
+                UserProfileId = entity.UserProfileId,
+                StoryId = entity.StoryId,
+                RateSubjectId = entity.RateSubjectId,
+                RateSubjectCaption = entity.STR_RateSubject != null ? entity.STR_RateSubject.Caption : "",
+                Rate = entity.Rate,
+                ActionDate = entity.ActionDate
+            };
+        }
     }
 }

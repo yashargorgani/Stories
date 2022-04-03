@@ -38,14 +38,14 @@ namespace Stories.Web.Controllers
 
 
                     var resp = await client.GetAsync($"Topic/TopicsForHeader");
-                    topics = await resp.Content.ReadAsAsync<List<Topic>>(new List<MediaTypeFormatter> { new JsonMediaTypeFormatter() });
+                    topics = await resp.Content.ReadAsAsync<List<Topic>>();
 
                     bool isAuth = await User.Identity.IsGlobalAuthenticateAsync();
 
                     if (isAuth)
                     {
                         var resp_user = await client.GetAsync($"UserProfile/Get");
-                        user = await resp_user.Content.ReadAsAsync<UserProfile>(new List<MediaTypeFormatter> { new JsonMediaTypeFormatter() });
+                        user = await resp_user.Content.ReadAsAsync<UserProfile>();
                     }
                 }
 

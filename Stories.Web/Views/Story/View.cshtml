@@ -1,6 +1,7 @@
 ﻿@model Stories.Models.Story
 @using Stories.Helpers
 @using Stories.Models
+@using Stories.Web.Helpers
 
 @{
     ViewBag.Title = $"{Model.Title} - {Model.TopicCaption}";
@@ -8,11 +9,24 @@
 
     string b64 = Convert.ToBase64String(Model.StoryImage == null ? new byte[0] : Model.StoryImage);
     string profileImage = Convert.ToBase64String(Model.UserProfileImage == null ? new byte[0] : Model.UserProfileImage);
+
+    var rateSubjects = (IEnumerable<RateSubject>)ViewBag.RateSubjects;
+}
+
+@section Styles
+{
+    <style>
+        .checked {
+            color: orange;
+        }
+    </style>
+
+
 }
 
 @section Scripts
 {
-
+    <script src="~/Scripts/Story/view.js"></script>
 }
 
 <div class="container mt-5 mb-5">
@@ -27,7 +41,9 @@
                             <img src="@string.Format("data:image/jpg;base64,{0}", profileImage)" class="rounded-circle" height="30" width="30" />
                         }
 
-                        @Html.DisplayFor(x => x.UserProfileName)
+                        <a href="@Url.Action("Display", "UserProfile", new {id = Model.UserProfileId})">
+                            @Html.DisplayFor(x => x.UserProfileName)
+                        </a>
                     </span>
                 </li>
                 <li class="list-inline-item"></li>
@@ -62,14 +78,56 @@
                         کلمات کلیدی:
                     </label>
 
-                    @foreach(var item in Model.Tags)
+                    @foreach (var item in Model.Tags)
                     {
-                        <a href="#" class="btn btn-light btn-sm">@item.Caption</a>
+                        @Html.DisplayFor(x => item, "StoryTag")
                     }
 
                 </div>
 
             </article>
+
+            @*<div class="container">
+                    <div class="starrating risingstar d-flex justify-content-center flex-row-reverse">
+                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" style="font-family:Vazir-Thin-FD">5</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" style="font-family:Vazir-Thin-FD">4</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" style="font-family:Vazir-Thin-FD">3</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" style="font-family:Vazir-Thin-FD">2</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" style="font-family:Vazir-Thin-FD">1</label>
+                    </div>
+                </div>*@
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="container">
+                    @foreach (var item in rateSubjects)
+                    {
+                        bool check = false;
+                        var rate = Model.Rates.FirstOrDefault(x => x.RateSubjectId == item.Id && x.UserProfileId == User.Identity.ProfileId());
+
+                        if (rate != null) { check = true; }
+
+                        <div style="text-align:center">
+                            <label style="vertical-align:middle">@item.Caption</label>
+                            <span data-value="1" data-subject="@item.Id" data-story="@Model.Id"
+                                  class="fa fa-star fa-2x ygstar @(check && rate.Rate >= 1 ? "checked": "")"
+                                  style="cursor: pointer;"></span>
+                            <span data-value="2" data-subject="@item.Id" data-story="@Model.Id"
+                                  class="fa fa-star fa-2x ygstar @(check && rate.Rate >= 2 ? "checked": "")"
+                                  style="cursor: pointer;"></span>
+                            <span data-value="3" data-subject="@item.Id" data-story="@Model.Id"
+                                  class="fa fa-star fa-2x ygstar @(check && rate.Rate >= 3 ? "checked": "")"
+                                  style="cursor: pointer;"></span>
+                            <span data-value="4" data-subject="@item.Id" data-story="@Model.Id"
+                                  class="fa fa-star fa-2x ygstar @(check && rate.Rate >= 4 ? "checked": "")"
+                                  style="cursor: pointer;"></span>
+                            <span data-value="5" data-subject="@item.Id" data-story="@Model.Id"
+                                  class="fa fa-star fa-2x ygstar @(check && rate.Rate >= 5 ? "checked": "")"
+                                  style="cursor: pointer;"></span>
+                        </div>
+                    }
+                </div>
+            }
 
         </div>
     </div>

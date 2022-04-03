@@ -211,6 +211,8 @@ namespace Stories.DataAccess
                 .WithRequired(e => e.STR_Topic)
                 .HasForeignKey(e => e.TopicId)
                 .WillCascadeOnDelete(false);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Stories.Web.Controllers
 
                     var resp = await client.GetAsync($"UserProfile/Create");
 
-                    model = await resp.Content.ReadAsAsync<UserProfile>(new List<MediaTypeFormatter> { new JsonMediaTypeFormatter() });
+                    model = await resp.Content.ReadAsAsync<UserProfile>();
                 }
 
                 return View(model);
@@ -89,7 +89,7 @@ namespace Stories.Web.Controllers
 
                     var resp = await client.GetAsync($"UserProfile/Get/{id}");
 
-                    model = await resp.Content.ReadAsAsync<UserProfile>(new List<MediaTypeFormatter> { new JsonMediaTypeFormatter() });
+                    model = await resp.Content.ReadAsAsync<UserProfile>();
                 }
 
                 //for checking if the user visiting this profile, is his/her own profile or others
@@ -116,7 +116,7 @@ namespace Stories.Web.Controllers
                     client.BaseAddress = new Uri(baseAddress);
 
                     var resp = await client.GetAsync($"UserProfile/Get/{id}");
-                    model = await resp.Content.ReadAsAsync<UserProfile>(new List<MediaTypeFormatter> { new JsonMediaTypeFormatter() });
+                    model = await resp.Content.ReadAsAsync<UserProfile>();
                 }
 
                 return PartialView(model);

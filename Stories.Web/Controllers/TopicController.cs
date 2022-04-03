@@ -13,6 +13,7 @@ using Stories.Web.Helpers;
 namespace Stories.Web.Controllers
 {
     [GlobalAuthorize]
+    [AllowAnonymous]
     public class TopicController : Controller
     {
         string baseAddress;
@@ -23,6 +24,7 @@ namespace Stories.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult> Select()
         {
             try
@@ -62,6 +64,7 @@ namespace Stories.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> Select(FormCollection collection)
         {
             try

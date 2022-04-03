@@ -3,7 +3,6 @@
 @{
     string b64 = Convert.ToBase64String(Model.ProfileImage == null ? new byte[0] : Model.ProfileImage);
 }
-
 <span>
     @if (Model.ProfileImage != null)
     {
@@ -11,4 +10,6 @@
     }
 
     @Html.DisplayFor(x => x.Name)
+
 </span>
+

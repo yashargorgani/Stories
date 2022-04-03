@@ -17,16 +17,29 @@
     <link href="~/Content/css/bootstrap-rtl.css" rel="stylesheet" />
     <link href="~/Content/slick/slick.css" rel="stylesheet" />
     <link href="~/Content/slick/slick-theme.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/Content/css/style.css">
+    <link href="~/Content/css/style.css" rel="stylesheet">
+
     @RenderSection("Styles", false)
 </head>
 <body>
 
-    <div id="divHeader" class="text-center">
+    <div id="divHeader" class="text-center" style="height:95px">
         <img src="~/Content/img/header-loading.gif" />
     </div>
 
-    @RenderBody()
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    <div style="min-height:100%; position:relative; text-align:center">
+        <hr />
+        <footer style="padding:24px">
+            <p style="font-family: Vazir-Thin">
+                <blockquote>در حال توسعه</blockquote>
+                <i class="fa fa-code fa-3x"></i>
+            </p>
+        </footer>
+    </div>
 
 
     <script src="~/Scripts/jquery/jquery-3.3.1.js"></script>
@@ -35,12 +48,22 @@
     <script src="~/Scripts/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="~/Content/slick/slick.js"></script>
     <script>
-        $(document).ready(function () {
+        @*$(document).ready(function () {
             $('#divHeader').load('@Url.Action("PartialHeader", "WebLayout")', afterHeaderLoad);
+        });*@
+
+        $.ajax({
+            url: '@Url.Action("PartialHeader", "WebLayout")',
+            type: 'GET',
+            cache: true,
+            async: true
+        }).done(function (x) {
+            $('#divHeader').html(x);
+            afterHeaderLoad();
         });
 
         var afterHeaderLoad = function () {
-            $('#topicCourser').slick({
+            $('body').find('#topicCourser').slick({
                 rtl: true,
                 slidesToShow: 8,
                 slidesToScroll: 1,

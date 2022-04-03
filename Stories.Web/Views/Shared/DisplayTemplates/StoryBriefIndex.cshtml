@@ -60,20 +60,20 @@
 
             <a class="card-link" href="@Url.Action("View", new { Model.Id })">مشاهده</a>
 
-            <div class="dropdown float-left ml-2">
-                <a class="card-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
-                </a>
 
-                @if (User.Identity.ProfileId() == Model.UserProfileId)
-                {
+            @if (User.Identity.ProfileId() == Model.UserProfileId)
+            {
+                <div class="dropdown float-left ml-2">
+                    <a class="card-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="@Url.Action("Edit", "Story", new {@id = Model.Id })">ویرایش</a>
                         <a class="dropdown-item" href="@Url.Action("Delete", "Story", new { @id = Model.Id})" onclick="return confirm('آیا مطمئن هستید؟')">حذف</a>
                     </div>
-                }
+                </div>
+            }
 
-            </div>
 
         </div>
     </div>

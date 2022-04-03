@@ -32,7 +32,7 @@ namespace Stories.Service.Infrastructure
 
             var identity = new GenericIdentity(userAccount.Id.ToString());
 
-            IPrincipal principal = new GenericPrincipal(identity, new[] { "User" });
+            IPrincipal principal = new GenericPrincipal(identity, new[] { "User" });            
 
             return principal;
         }

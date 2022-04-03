@@ -27,6 +27,7 @@ namespace Stories.Models
         public string StoryStatusValue { get; set; }
         public string TopicCaption { get; set; }
         public List<Tag> Tags { get; set; }
+        public List<RateOfStory> Rates { get; set; }
         public string UserProfileName { get; set; }
         public byte[] UserProfileImage { get; set; }
 

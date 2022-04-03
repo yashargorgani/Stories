@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using Stories.Models;
-using Newtonsoft.Json;
-using Stories.Service.Helpers;
-using Stories.DataAccess;
-using System.Linq.Expressions;
+﻿using Stories.DataAccess;
 using Stories.DataAccess.Entities;
 using Stories.Helpers;
+using Stories.Models;
+using Stories.Service.Helpers;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Stories.Service.Controllers
 {
@@ -20,11 +16,13 @@ namespace Stories.Service.Controllers
     public class StoryController : ApiController
     {
         StoriesDbContext db;
+        //IQueryable<STR_Story> query;
 
         public StoryController(StoriesDbContext _db)
         {
             db = _db;
-        }
+            //query = db.STR_Story.Where(x => x.STR_StoryStatus.Value == StoryStatusValue.Publish);
+        }        
 
         #region GET STORY
 
@@ -38,7 +36,7 @@ namespace Stories.Service.Controllers
         public async Task<IHttpActionResult> Get(Guid id)
         {
             try
-            {
+            {               
                 var entity = db.STR_Story.Find(id);
 
                 if (entity == null)
@@ -50,6 +48,8 @@ namespace Stories.Service.Controllers
                     (await db.STR_TagOfStory
                     .Where(x => x.StoryId == id)
                     .Select(x => x.STR_Tag).ToListAsync()).Select(x => x.Map()).ToList();
+
+                model.Rates = entity.STR_RateOfStory.Select(x => x.Map()).ToList();
 
                 return Ok(model);
             }
@@ -113,13 +113,34 @@ namespace Stories.Service.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> GetForHomePage(int page)
+        public async Task<IHttpActionResult> GetForHomePage([FromUri]SearchParam sp)
         {
             try
             {
                 var count = 10;
                 var stories = new List<Story>();
                 IQueryable<STR_Story> query = db.STR_Story.Where(x => x.STR_StoryStatus.Value == StoryStatusValue.Publish);
+
+                if (!string.IsNullOrEmpty(sp.q))
+                {
+                    query = query.Where(x =>
+                        x.Title.Contains(sp.q) ||
+                        x.STR_Topic.Caption.Contains(sp.q) ||
+                        x.PRF_UserProfile.Name.Contains(sp.q) ||
+                        x.STR_TagOfStory.Select(t => t.STR_Tag.Caption).Contains(sp.q));
+                }
+
+                if (sp.topic.HasValue)
+                {
+                    query = query.Where(x =>
+                        x.TopicId == sp.topic.Value);
+                }
+
+                if (sp.tag.HasValue)
+                {
+                    query = query.Where(x =>
+                        x.STR_TagOfStory.Any(t => t.TagId == sp.tag.Value));
+                }
 
                 if (User.Identity.IsAuthenticated)
                 {
@@ -135,7 +156,7 @@ namespace Stories.Service.Controllers
 
                 stories =
                     (await query.OrderByDescending(x => x.ActionDate)
-                    .Skip((page - 1) * count).Take(count).ToListAsync()).Select(x => x.Map()).ToList();
+                    .Skip((sp.page - 1) * count).Take(count).ToListAsync()).Select(x => x.Map()).ToList();
 
                 Parallel.ForEach(stories.Where(x => x.StoryImage != null),
                 item =>
@@ -354,6 +375,75 @@ namespace Stories.Service.Controllers
                 ex.LogException(ControllerContext.RequestContext);
                 throw ex;
             }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> RateSubjects()
+        {
+            try
+            {
+                var model = await db.STR_RateSubject
+                        .Select(x => new RateSubject
+                        {
+                            Id = x.Id,
+                            Caption = x.Caption
+                        }).ToListAsync();
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                ex.LogException(ControllerContext.RequestContext);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IHttpActionResult> Rate(RateStory rate)
+        {
+            try
+            {
+                var userId = User.Identity.GetProfileId().Value;
+
+                if (rate.Rate > 5 || rate.Rate < 1)
+                {
+                    return BadRequest("Rate should be between one and five.");
+                }
+
+                var entity = await db.STR_RateOfStory
+                    .FirstOrDefaultAsync(x =>
+                    x.UserProfileId ==  userId &&
+                    x.StoryId == rate.StoryId && x.RateSubjectId == rate.RateSubjectId);
+
+                if(entity != null)
+                {
+                    entity.Rate = rate.Rate;
+
+                    db.Entry(entity).State = EntityState.Modified;
+                }
+                else
+                {
+                    entity = new STR_RateOfStory
+                    {
+                        StoryId = rate.StoryId,
+                        UserProfileId = userId,
+                        RateSubjectId = rate.RateSubjectId,
+                        Rate = rate.Rate,
+                    };
+
+                    db.STR_RateOfStory.Add(entity);
+                }                
+
+                await db.SaveChangesAsync();
+
+                return Ok(entity.Map());
+            }
+            catch (Exception ex)
+            {
+                ex.LogException(ControllerContext.RequestContext);
+                return BadRequest(ex.Message);
+            }            
         }
     }
 }

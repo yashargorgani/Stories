@@ -77,6 +77,12 @@ namespace Stories.Service.Controllers
                 var account = db.PRF_UserAccount.FirstOrDefault(x => x.EmailAddress == userData.email);
 
                 bool isRegistered = account != null;
+
+                if (isRegistered)
+                {
+                    account.Token = accessToken;
+                    await db.SaveChangesAsync();
+                }
                 
                 //if the user account is not registered, will create an account
                 if (!isRegistered)
@@ -94,7 +100,8 @@ namespace Stories.Service.Controllers
                     {
                         Id = Guid.NewGuid(),
                         UserProfileId = userProfile.Id,
-                        EmailAddress = userData.email
+                        EmailAddress = userData.email,
+                        Token = accessToken
                     });
 
                     await db.SaveChangesAsync();

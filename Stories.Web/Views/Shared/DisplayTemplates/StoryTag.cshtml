@@ -1,0 +1,4 @@
+﻿@model Stories.Models.Tag
+
+<a href="@Url.Action("Index", "Home", new { tag = Model.Id})" 
+   class="btn btn-light btn-sm">@Model.Caption</a>

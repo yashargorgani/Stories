@@ -8,6 +8,12 @@ namespace Stories.DataAccess.Entities
 
     public partial class STR_RateOfStory
     {
+        public STR_RateOfStory()
+        {
+            Id = Guid.NewGuid();
+            ActionDate = DateTime.Now;
+        }
+
         public Guid Id { get; set; }
 
         public Guid StoryId { get; set; }

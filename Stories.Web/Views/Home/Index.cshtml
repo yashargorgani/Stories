@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<Stories.Models.Story>
+
 @{
     ViewBag.Title = "صفحه نخست";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,24 +8,43 @@
 @section Scripts
 {
     <script>
-        $('#home-story-div').load('@Url.Action("LoadStory")');
+        //$('#home-story-div').load('@Url.Action("LoadStory")');
     </script>
 
     <script>
         $('#load-more-btn').click(function () {
             var p = parseInt($(this).val());
+            var q = $(document).find('form#header-search-form input[name="q"]').val();
 
             $.ajax({
                 url: '@Url.Action("LoadStory")',
-                data: { page: p+1 },
+                data: { page: p+1, q: q },
                 type: 'GET',
                 dataType: 'html'
             }).done(function(result) {
-                $('#home-story-div').append(result);
-                $('#load-more-btn').val(++p);
+                    $('#home-story-div').append(result);
+                    $('#load-more-btn').val(++p);
                 });
         })
     </script>
+
+    <script>
+        @*$(document).on('submit', 'form#header-search-form',
+            function (e) {
+                e.preventDefault();
+                let form = $(this);
+
+                $.ajax({
+                    url: '@Url.Action("LoadStory")',
+                    data: form.serialize(),
+                    type: 'GET',
+                    dataType: 'html'
+                }).done(function(result) {
+                    $('#home-story-div').append(result);
+                });
+            })*@
+    </script>
+
 }
 
 <div class="container mt-5 mb-5">
@@ -32,10 +52,13 @@
         <div class="col-12">
             <div id="home-story-div">
 
-                <div class="text-center">
-                    <img src="~/Content/img/header-loading.gif" />
-                </div>
+                @*<div class="text-center">
+                        <img src="~/Content/img/header-loading.gif" />
+                    </div>*@
 
+                @{ 
+                    Html.RenderPartial("LoadStory", Model);
+                }
 
             </div>
 

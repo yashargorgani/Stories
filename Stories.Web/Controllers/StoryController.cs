@@ -44,7 +44,8 @@ namespace Stories.Web.Controllers
                 }
 
                 model.ForEach(
-                    x => {
+                    x =>
+                    {
                         x.Body = Regex.Replace(x.Body, "<.*?>", String.Empty);
                     });
 
@@ -64,7 +65,7 @@ namespace Stories.Web.Controllers
         {
             try
             {
-                await LoadSelectListItemsAsync();
+                await LoadComposeSelectListItems();
 
                 return View();
             }
@@ -195,7 +196,7 @@ namespace Stories.Web.Controllers
         {
             try
             {
-                await LoadSelectListItemsAsync();
+                await LoadComposeSelectListItems();
 
                 Story story = new Story();
 
@@ -249,7 +250,7 @@ namespace Stories.Web.Controllers
                 {
                     var b64Str = "data:image/png;base64,";
 
-                    string img = entity.StoryCoverImgResized.StartsWith(b64Str) ? 
+                    string img = entity.StoryCoverImgResized.StartsWith(b64Str) ?
                             entity.StoryCoverImgResized.Substring(b64Str.Length) : entity.StoryCoverImgResized;
                     model.StoryImage = Convert.FromBase64String(img);
                 }
@@ -305,6 +306,8 @@ namespace Stories.Web.Controllers
                     model = await resp.Content.ReadAsAsync<Story>(new List<MediaTypeFormatter> { new JsonMediaTypeFormatter() });
                 }
 
+                await LoadDisplayViewBags();
+
                 return View(model);
             }
             catch (Exception ex)
@@ -341,6 +344,7 @@ namespace Stories.Web.Controllers
 
         #region Partial Actions
 
+        [AllowAnonymous]
         public async Task<ActionResult> PartialIndex(Guid UserProfileId)
         {
             try
@@ -355,7 +359,8 @@ namespace Stories.Web.Controllers
                 }
 
                 model.ForEach(
-                    x => {
+                    x =>
+                    {
                         x.Body = Regex.Replace(x.Body, "<.*?>", String.Empty);
                     });
 
@@ -370,13 +375,39 @@ namespace Stories.Web.Controllers
 
         #endregion
 
+        #region Rate
+
+        [HttpPost]
+        public async Task<ActionResult> Rate(int RateSubjectId, Guid StoryId, short Rate)
+        {
+            try
+            {
+                using (var client = new HttpClient(new AuthenticationHandler()))
+                {
+                    client.BaseAddress = new Uri(baseAddress);
+
+                    var resp = await client.PostAsJsonAsync<RateStory>($"Story/Rate",
+                        new RateStory { RateSubjectId = RateSubjectId, StoryId = StoryId, Rate = Rate });
+
+                    return Json(resp.IsSuccessStatusCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.LogException(ControllerContext.HttpContext);
+                return View("Error");
+            }
+        }
+
+        #endregion
 
         #region Methods
 
-        async Task LoadSelectListItemsAsync(Story entity = null)
+        async Task LoadComposeSelectListItems(Story entity = null)
         {
             var topics = new List<SelectListItem>();
             var statuses = new List<SelectListItem>();
+
 
             using (var client = new HttpClient(new AuthenticationHandler()))
             {
@@ -416,11 +447,31 @@ namespace Stories.Web.Controllers
                 if (entity != null)
                     statuses.Single(x => x.Value == entity.StoryStatusId.ToString()).Selected = true;
                 #endregion
+
+
             }
 
             ViewBag.Topics = topics;
             ViewBag.StoryStatuses = statuses;
         }
+
+        async Task LoadDisplayViewBags()
+        {
+            using (var client = new HttpClient(new AuthenticationHandler()))
+            {
+                client.BaseAddress = new Uri(baseAddress);
+
+                #region Rate Subjects
+
+                var respRate = await client.GetAsync($"Story/RateSubjects");
+                var rateSubjects = await respRate.Content.ReadAsAsync<IEnumerable<RateSubject>>();
+
+                ViewBag.RateSubjects = rateSubjects;
+
+                #endregion
+            }
+        }
+
         #endregion
     }
 }

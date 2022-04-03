@@ -30,7 +30,9 @@
                     <img src="@string.Format("data:image/jpg;base64,{0}", b64)" class="rounded-circle" alt="@Model.Name" height="70" width="70" />
 
                     <h4 style="display:inline-block">
-                        @Html.DisplayFor(x => x.Name)
+                        
+                            @Html.DisplayFor(x => x.Name)
+                        
                     </h4>
 
                     @if (!owns && User.Identity.IsAuthenticated)

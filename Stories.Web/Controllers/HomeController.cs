@@ -26,13 +26,11 @@ namespace Stories.Web.Controllers
             baseAddress = ConfigurationManager.AppSettings["WebApiUrl"];
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(SearchParam sp)
         {
             try
             {
-
-
-                return View();
+                return View(await _GetStories(sp));
             }
             catch (Exception ex)
             {
@@ -41,23 +39,11 @@ namespace Stories.Web.Controllers
             }
         }
 
-        public async Task<ActionResult> LoadStory(int page=1)
+        public async Task<ActionResult> LoadStory(SearchParam sp)
         {
             try
             {
-                List<Story> model = new List<Story>();
-
-                using (var client = new HttpClient(new AuthenticationHandler()))
-                {
-                    client.BaseAddress = new Uri(baseAddress);
-                    var resp = await client.GetAsync($"Story/GetForHomePage?page={page}");
-                    model = await resp.Content.ReadAsAsync<List<Story>>(new List<MediaTypeFormatter> { new JsonMediaTypeFormatter() });
-                }
-
-                model.ForEach(
-                    x => {
-                        x.Body = Regex.Replace(x.Body, "<.*?>", String.Empty);
-                    });
+                var model = await _GetStories(sp);
 
                 return PartialView(model);
             }
@@ -66,6 +52,33 @@ namespace Stories.Web.Controllers
                 ex.LogException(ControllerContext.HttpContext);
                 throw ex;
             }
+        }
+
+        private async Task<IEnumerable<Story>> _GetStories(SearchParam sp)
+        {
+            List<Story> model = new List<Story>();
+
+            using (var client = new HttpClient(new AuthenticationHandler()))
+            {
+                client.BaseAddress = new Uri(baseAddress);
+                string url = $"Story/GetForHomePage{sp.ToUrl()}";
+                //if(!string.IsNullOrEmpty(q))
+                //    url = url + "&q=" + q;
+                var resp = await client.GetAsync(url);
+                //var json = await resp.Content.ReadAsStringAsync();
+                //model = JsonConvert.DeserializeObject<List<Story>>(json);
+
+                if(resp.IsSuccessStatusCode)
+                    model = await resp.Content.ReadAsAsync<List<Story>>();
+            }
+
+            model.ForEach(
+                x =>
+                {
+                    x.Body = Regex.Replace(x.Body, "<.*?>", String.Empty);
+                });
+
+            return model;
         }
     }
 }
